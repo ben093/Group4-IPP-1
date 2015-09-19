@@ -1,0 +1,10 @@
+﻿body {
+    margin: 0 auto;
+    text-align: center;
+}
+
+footer {
+  background-color: #ccc;
+  margin-top: -3em;
+  bottom: 0;
+}

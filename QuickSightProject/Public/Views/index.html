@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html ng-app="QuickSight">
+<head>
+    <meta charset="utf-8" />
+    <title>QuickSight</title>
+
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="./Stylesheets/styles.css">
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="Scripts/core.js"></script>
+
+</head>
+<body ng-controller="mainController">
+    <h1>{{ testText }}</h1>
+
+    <button type="submit" class="btn btn-primary btn-lg" ng-click="changeText()">Text Change</button>
+
+
+    <footer>
+        <div layout="row" layout-align="center center">
+            <a id="infoLink" href="info">Info Page</a>
+        </div>
+    </footer>
+</body>
+</html>

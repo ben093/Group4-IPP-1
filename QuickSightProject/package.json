@@ -1,0 +1,16 @@
+{
+  "name": "QuickSightProject",
+  "version": "0.0.0",
+  "description": "QuickSightProject",
+  "main": "server.js",
+  "author": {
+    "name": "Casey Brown",
+    "email": "cdb92@live.missouristate.edu"
+  },
+  "dependencies": {
+    "body-parser": "^1.5.2",
+    "express": "^4.7.4",
+    "method-override": "^2.1.3",
+    "morgan": "^1.2.3"
+  }
+}
