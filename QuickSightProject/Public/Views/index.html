@@ -15,15 +15,20 @@
 
 </head>
 <body ng-controller="mainController">
-    <h1>{{ testText }}</h1>
+    <h1> Quick Sight</h1>
 
-    <button type="submit" class="btn btn-primary btn-lg" ng-click="changeText()">Text Change</button>
-
-
-    <footer>
+    <h4>
+        Welcome to Quick Sight! Please fill out the forms below
+        so that we may better understand our player base. After that
+        you can proceed on to the image selection.
+    </h4>
+    
+    <label>Name: <input type="text" ng-model="nameInput" ng-maxlength="20" /></label>
+    <div footer>
         <div layout="row" layout-align="center center">
             <a id="infoLink" href="info">Info Page</a>
+            <a id="hscoresLink" href="highscores">High Scores</a>
         </div>
-    </footer>
+    </div footer>
 </body>
 </html>

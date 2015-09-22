@@ -4,6 +4,7 @@ var app = express();                               // create our app w/ express
 var morgan = require('morgan');                    // log requests to the console (express4)
 var bodyParser = require('body-parser');           // pull information from HTML POST (express4)
 var methodOverride = require('method-override');   // simulate DELETE and PUT (express4)
+var path = require('path');
 
 
 // configuration
@@ -19,10 +20,17 @@ app.use(methodOverride());
 app.listen(8080);
 console.log("App listening on port 8080");
 
+//Index page
 app.get('/', function (req, res) {
-    res.sendfile('./public/views/index.html');
+    res.sendFile(path.join(__dirname, '/Public/Views/index.html'));
 });
 
+//Info page
 app.get('/info', function (req, res) {
-    res.sendfile('./public/views/info.html');
+    res.sendFile(path.join(__dirname, '/Public/Views/info.html'));
+});
+
+//High scores page
+app.get('/highscores', function (req, res) {
+    res.sendFile(path.join(__dirname, '/Public/Views/hscores.html'));
 });
