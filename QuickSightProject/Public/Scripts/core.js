@@ -24,6 +24,9 @@ app.controller('hscoresController', function ($scope, $http) {
 });
 
 app.controller('infoController', function ($scope, $http) {
+    
+    $scope.text = "THIS";
+
     $scope.developers = [
         { name: 'Casey' },
         { name: 'Ben' },

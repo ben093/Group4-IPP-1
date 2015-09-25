@@ -5,6 +5,7 @@ var morgan = require('morgan');                    // log requests to the consol
 var bodyParser = require('body-parser');           // pull information from HTML POST (express4)
 var methodOverride = require('method-override');   // simulate DELETE and PUT (express4)
 var path = require('path');
+var mongoose = require('mongoose');                // Will handle mongoDB
 
 
 // configuration
