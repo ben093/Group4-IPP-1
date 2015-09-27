@@ -26,6 +26,11 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/Public/Views/index.html'));
 });
 
+//Game page
+app.get('/game', function (req, res) {
+    res.sendFile(path.join(__dirname, 'Public/Views/game.html'));
+});
+
 //Info page
 app.get('/info', function (req, res) {
     res.sendFile(path.join(__dirname, '/Public/Views/info.html'));

@@ -4,10 +4,10 @@ var app = angular.module('QuickSight', []);
 
 app.controller('mainController', function($scope, $http) {
     
-    $scope.testText = "Press the button!";
-
-    $scope.changeText = function () {
-        $scope.testText = "Pressed";
+    $scope.confirm = function ($window) {
+        //put the data into the database
+        //load the game page 
+        window.location = '/game';
     };
 });
 
