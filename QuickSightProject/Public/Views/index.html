@@ -1,20 +1,4 @@
-﻿<!DOCTYPE html>
-
-<html ng-app="QuickSight">
-<head>
-    <meta charset="utf-8" />
-    <title>QuickSight</title>
-
-    <!--Stylesheet-->
-    <link rel="stylesheet" href="./Stylesheets/styles.css">
-
-    <!-- SPELLS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
-    <script src="Scripts/core.js"></script>
-
-</head>
-<body ng-controller="mainController">
+﻿
     <h1> Quick Sight</h1>
 
     <h4>
@@ -23,8 +7,18 @@
         you can proceed on to the image selection.
     </h4>
     
-    <label>Name: <input type="text" ng-model="nameInput" ng-maxlength="20" /></label>
-    <button ng-click="confirm()">Confirm</button>
+    <form ng-submit="sendPost()">
+        <label>Name: <input type="text" ng-model="userData.name" ng-maxlength="20" /></label>
+        <label>Age: <input type="text" ng-model="userData.age" ng-maxlength="2" /></label>
+        <label>Gender: </label>
+        <select name="genderSelect" ng-model="userData.gender">
+            <option value="option-1">Male</option>
+            <option value="option-2">Female</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p>{{ data }}</p>
 
     <div footer>
         <div layout="row" layout-align="center center">
@@ -32,5 +26,3 @@
             <a id="hscoresLink" href="highscores">High Scores</a>
         </div>
     </div footer>
-</body>
-</html>

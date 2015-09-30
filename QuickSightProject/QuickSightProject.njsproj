@@ -35,6 +35,7 @@
     <Content Include="package.json" />
     <Content Include="Public\Stylesheets\gray-brick-wall.JPG" />
     <Content Include="Public\Stylesheets\styles.css" />
+    <Content Include="Public\Views\base.html" />
     <Content Include="Public\Views\game.html" />
     <Content Include="Public\Views\hscores.html" />
     <Content Include="Public\Views\index.html" />

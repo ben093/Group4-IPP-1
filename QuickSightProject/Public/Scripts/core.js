@@ -1,14 +1,34 @@
 ﻿//public/Scrpts/core.js
 
-var app = angular.module('QuickSight', []);
+var app = angular.module('QuickSight', ['ngRoute']);
 
-app.controller('mainController', function($scope, $http) {
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when('/', {
+        templateUrl: 'index.html',
+        controller: 'mainController'
+    })
+        .when('/info', {
+        templateUrl: 'info.html',
+        controller: 'infoController'
+    })
+        .when('/hscores', {
+        templateUrl: 'hscores.html',
+        controller: 'hscoresController'
+    });
+});
+
+app.controller('mainController', function ($scope, $http) {
     
-    $scope.confirm = function ($window) {
-        //put the data into the database
-        //load the game page 
-        window.location = '/game';
+    $scope.userData = { name: '', age: '', gender: '' };
+    $scope.users = [];
+
+    $scope.sendPost = function () {
+        users.push($scope.userData);
+        userData = { name: '', age: '', gender: '' };
     };
+
+    
 });
 
 app.controller('hscoresController', function ($scope, $http) {
