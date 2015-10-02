@@ -25,7 +25,6 @@ table tr:nth-child(odd){
 table tr:nth-child(even){
     background-color: #0026ff;
 }
-<<<<<<< HEAD
 
 ul {
     padding-left: 0;
@@ -39,5 +38,3 @@ ul {
 ul li{
     list-style-position:inside;
 }
-=======
->>>>>>> ed0e3b75303a5519cc924b5ca7b769d31e30dc71
