@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>QuickSight</title>
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="./Stylesheets/styles.css">
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
+    <script src="./Scripts/core.js"></script>
+</head>
+<body ng-controller="gameController" ng-app="QuickSight">
+    <p> Game Page </p>
+    <div ng-repeat="imageSet in imageGroup" class="imageRows">
+        <div ng-repeat="image in imageSet">
+            <img src="{{ image }}" width="100" height="100"/>
+        </div>
+    </div>
+</body>
+</html>

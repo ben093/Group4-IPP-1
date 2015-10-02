@@ -1,0 +1,40 @@
+﻿body {
+    margin: 0 auto;
+    text-align: center;
+    background-image: url(gray-brick-wall.JPG);
+    background-size: cover;
+    font-family: Verdana, Geneva, sans-serif;
+    width: 50%;
+}
+
+div footer {
+
+}
+
+table, th, td{
+    margin: 0 auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+table tr:nth-child(odd){
+    background-color: lime;
+}
+
+table tr:nth-child(even){
+    background-color: #0026ff;
+}
+
+ul {
+    padding-left: 0;
+}
+
+.imageRows{
+    vertical-align: top;
+    display: inline-block;
+}
+
+ul li{
+    list-style-position:inside;
+}
