@@ -1,6 +1,28 @@
+<<<<<<< HEAD
 ﻿//public/core.js
 
 var app = angular.module('QuickSight', []);
+=======
+﻿//public/Scrpts/core.js
+
+var app = angular.module('QuickSight', ['ngRoute']);
+
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when('/', {
+        templateUrl: 'index.html',
+        controller: 'mainController'
+    })
+        .when('/info', {
+        templateUrl: 'info.html',
+        controller: 'infoController'
+    })
+        .when('/hscores', {
+        templateUrl: 'hscores.html',
+        controller: 'hscoresController'
+    });
+});
+>>>>>>> ed0e3b75303a5519cc924b5ca7b769d31e30dc71
 
 app.controller('mainController', function ($scope, $http) {
     
@@ -11,6 +33,7 @@ app.controller('mainController', function ($scope, $http) {
         users.push($scope.userData);
         userData = { name: '', age: '', gender: '' };
     };
+<<<<<<< HEAD
 });
 
 app.controller('gameController', function ($scope, $http) {
@@ -19,12 +42,19 @@ app.controller('gameController', function ($scope, $http) {
                           "./Views/imageSet/earth.gif"],[ "./Views/imageSet/jackolantern.jpg", 
                           "./Views/imageSet/math.jpg", "./Views/imageSet/poker.jpg",
                           "./Views/imageSet/rose.jpg", "./Views/imageSet/trigCalc.jpg"]];
+=======
+
+    
+>>>>>>> ed0e3b75303a5519cc924b5ca7b769d31e30dc71
 });
 
 app.controller('hscoresController', function ($scope, $http) {
 
     $scope.highscoresTESTONLY = [
+<<<<<<< HEAD
         { name: 'NAME', score:'SCORE'},
+=======
+>>>>>>> ed0e3b75303a5519cc924b5ca7b769d31e30dc71
         { name: 'Samuel', score: '102033' },
         { name: 'John', score: '75483' },
         { name: 'Ashley', score: '23984' },
@@ -36,6 +66,11 @@ app.controller('hscoresController', function ($scope, $http) {
 
 app.controller('infoController', function ($scope, $http) {
     
+<<<<<<< HEAD
+=======
+    $scope.text = "THIS";
+
+>>>>>>> ed0e3b75303a5519cc924b5ca7b769d31e30dc71
     $scope.developers = [
         { name: 'Casey' },
         { name: 'Ben' },

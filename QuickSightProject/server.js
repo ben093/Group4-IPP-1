@@ -1,10 +1,19 @@
 ﻿// set up requires
 var express = require('express');
+<<<<<<< HEAD
 var path = require('path');
 var app = express();                               // create our app w/ express
 var morgan = require('morgan');                    // log requests to the console (express4)
 var bodyParser = require('body-parser');           // pull information from HTML POST (express4)
 var methodOverride = require('method-override');   // simulate DELETE and PUT (express)
+=======
+var app = express();                               // create our app w/ express
+var morgan = require('morgan');                    // log requests to the console (express4)
+var bodyParser = require('body-parser');           // pull information from HTML POST (express4)
+var methodOverride = require('method-override');   // simulate DELETE and PUT (express4)
+var path = require('path');
+
+>>>>>>> ed0e3b75303a5519cc924b5ca7b769d31e30dc71
 
 //var mongodb = require('mongodb');                  // Mongo Database
 //var mongoClient = mongodb.MongoClient;
@@ -24,6 +33,7 @@ app.use(methodOverride());
 app.listen(8080);
 console.log("App listening on port 8080");
 
+<<<<<<< HEAD
 
 
 //Primary routes
@@ -41,6 +51,10 @@ app.get('/hscores', function (req, res) {
 
 app.get('/game', function (req, res) {
     res.sendFile(path.join(__dirname, '/Public/Views/game.html'));
+=======
+app.get('*', function (req, res) {
+    res.sendfile(path.join(__dirname, '/Public/Views/base.html'));
+>>>>>>> ed0e3b75303a5519cc924b5ca7b769d31e30dc71
 });
 
 //Connect to database and do some simple insertion and deletion calls
