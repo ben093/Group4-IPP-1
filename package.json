@@ -1,0 +1,18 @@
+{
+  "name": "QuickSightProject",
+  "version": "0.0.0",
+  "description": "QuickSightProject",
+  "main": "server.js",
+  "author": {
+    "name": "Casey Brown",
+    "email": "cdb92@live.missouristate.edu"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.1.8",
+    "morgan": "^1.6.1",
+    "mongodb": "^2.0.44"
+  }
+}
