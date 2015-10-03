@@ -5,6 +5,7 @@
     <title>QuickSight</title>
     <!--Stylesheet-->
     <link rel="stylesheet" href="./Stylesheets/styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Neuton:700,400' rel='stylesheet' type='text/css'>
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
@@ -12,18 +13,25 @@
     <script src="./Scripts/core.js"></script>
 </head>
 <body ng-controller="mainController" ng-app="QuickSight">
-    <h1> Game Page </h1>
-    <div ng-repeat="imageSet in imageGroup" class="imageRows">
-        <div ng-repeat="image in imageSet">
-            <img src="{{ image }}" width="125" height="125" padding="5px"/>
-        </div>
+    <div class="blurArea">
+        <h1 class="superLarge" style="color:white; margin:0 auto;"> Game Page </h1>
+    </div>
+    <p></p>
+    <div class="blurArea">
+            <div ng-repeat="imageSet in imageGroup" class="imageRows">
+                <div ng-repeat="image in imageSet">
+                    <img src="{{ image }}" width="125" height="125" padding="5px"/>
+                </div>
+            </div>
     </div>
 </body>
 <footer>
+    <div class="blurArea">
         <div layout="row" layout-align="center center">
             <a id="homeLink" href="\">Home</a>
             <a id="infoLink" href="info">Info Page</a>
             <a id="hscoresLink" href="hscores">High Scores</a>
         </div>
+    </div>
 </footer>
 </html>

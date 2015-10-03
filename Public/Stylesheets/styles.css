@@ -1,11 +1,17 @@
-﻿body {
+﻿/* Styles go here */
+a{
+  color:white;
+}
+
+body {
     padding-top: 100px;
     margin: 0 auto;
     text-align: center;
-    background-image: url(gray-brick-wall.JPG);
-    background-size: cover;
-    font-family: Verdana, Geneva, sans-serif;
-    width: 50%;
+    font-family:'Neuton', serif;
+    font-size: 22px;
+    width: auto;
+    background-image: url('sushi.png');
+    background-size: auto;
 }
 
 .btn {
@@ -26,6 +32,22 @@
   margin-top: 5px;
 }
 
+.blurBackground {     
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 99;
+
+  /* Pull the background 70px higher to the same place as #bg's */
+  background-position: center -70px;
+
+  -webkit-filter: blur(10px);
+  filter: url('/media/blur.svg#blur');
+  filter: blur(10px);
+}
+
 .btn:hover {
   background: #3cb0fd;
   background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
@@ -34,6 +56,30 @@
   background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
+}
+
+.blurArea{
+  background-color: transparent;
+  margin: 0 auto;
+  position: relative;
+  z-index: 100;
+  padding: 20px;
+  background: rgb(10, 10, 10); /* for IE */
+  background: rgba(10, 10 ,10 ,0.75);
+  color: white;
+}
+
+.superLarge{
+  font-size: 72px;
+}
+
+label, 
+select{
+  height: 30px;
+}
+
+input{
+  height: 25px;
 }
 
 footer {
@@ -52,15 +98,25 @@ table, th, td{
 }
 
 table tr:nth-child(odd){
-    background-color: lime;
+    background-color: #C2C2C2;
 }
 
 table tr:nth-child(even){
-    background-color: #0026ff;
+    background-color: #616161;
 }
 
 ul {
     padding-left: 0;
+}
+
+img{
+  padding: 10px;
+  margin-top: 0;
+}
+img:hover{
+  -moz-box-shadow: 0 0 10px #ccc; 
+  -webkit-box-shadow: 0 0 10px #ccc; 
+  box-shadow: 0 0 10px #ccc; 
 }
 
 .imageRows{

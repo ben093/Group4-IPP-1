@@ -12,19 +12,23 @@
     <script src="./Scripts/core.js"></script>
 </head>
 <body ng-controller="hscoresController">
-    <h1> High Scores </h1>
-    <table>
-        <tr ng-repeat="x in highscoresTESTONLY">
-            <td>{{ x.name }}</td>
-            <td>{{ x.score }}</td>
-        </tr>
-    </table>
+    <div class="blurArea">
+        <h1> High Scores </h1>
+        <table>
+            <tr ng-repeat="x in highscoresTESTONLY">
+                <td>{{ x.name }}</td>
+                <td>{{ x.score }}</td>
+            </tr>
+        </table>
+    </div>
 </body>
 <footer>
+    <div class="blurArea">
         <div layout="row" layout-align="center center">
             <a id="homeLink" href="\">Home</a>
             <a id="infoLink" href="info">Info Page</a>
             <a id="hscoresLink" href="hscores">High Scores</a>
         </div>
+    </div>
 </footer>
 </html>
