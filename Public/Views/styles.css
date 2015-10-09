@@ -1,0 +1,129 @@
+﻿/* Styles go here */
+a{
+  color:white;
+}
+
+body {
+    padding-top: 100px;
+    margin: 0 auto;
+    text-align: center;
+    font-family:'Neuton', serif;
+    font-size: 22px;
+    width: auto;
+    background-image: url('blurFull.jpg');
+    background-size: auto;
+}
+
+.btn {
+  background: #d1d1d1;
+  background-image: -webkit-linear-gradient(top, #d1d1d1, #1f1f1f);
+  background-image: -moz-linear-gradient(top, #d1d1d1, #1f1f1f);
+  background-image: -ms-linear-gradient(top, #d1d1d1, #1f1f1f);
+  background-image: -o-linear-gradient(top, #d1d1d1, #1f1f1f);
+  background-image: linear-gradient(to bottom, #d1d1d1, #1f1f1f);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  text-shadow: 1px 1px 3px #000000;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 4px;
+  text-decoration: none;
+}
+
+.blurBackground {     
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 99;
+
+  /* Pull the background 70px higher to the same place as #bg's */
+  background-position: center -70px;
+
+  -webkit-filter: blur(10px);
+  filter: url('/media/blur.svg#blur');
+  filter: blur(10px);
+}
+
+.btn:hover {
+  background: #262626;
+  background-image: -webkit-linear-gradient(top, #262626, #c9c9c9);
+  background-image: -moz-linear-gradient(top, #262626, #c9c9c9);
+  background-image: -ms-linear-gradient(top, #262626, #c9c9c9);
+  background-image: -o-linear-gradient(top, #262626, #c9c9c9);
+  background-image: linear-gradient(to bottom, #262626, #c9c9c9);
+  text-decoration: none;
+}
+
+.blurArea{
+  background-color: transparent;
+  margin: 0 auto;
+  position: relative;
+  z-index: 100;
+  padding: 20px;
+  background: rgb(10, 10, 10); /* for IE */
+  background: rgba(10, 10 ,10 ,0.75);
+  color: white;
+}
+
+.superLarge{
+  font-size: 72px;
+}
+
+label, 
+select{
+  height: 30px;
+}
+
+input{
+  height: 25px;
+}
+
+footer {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+table, th, td{
+    margin: 0 auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+table tr:nth-child(odd){
+    background-color: #C2C2C2;
+}
+
+table tr:nth-child(even){
+    background-color: #616161;
+}
+
+ul {
+    padding-left: 0;
+}
+
+img{
+  padding: 10px;
+  margin-top: 0;
+}
+img:hover{
+  -moz-box-shadow: 0 0 10px #ccc; 
+  -webkit-box-shadow: 0 0 10px #ccc; 
+  box-shadow: 0 0 10px #ccc; 
+}
+
+.imageRows{
+    vertical-align: top;
+    display: inline-block;
+}
+
+ul li{
+    list-style-position:inside;
+}
