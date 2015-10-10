@@ -1,7 +1,9 @@
 // public/js/app.js
 angular.module('QuickSight', ['ui.router'])
 
-.config(function($stateProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.otherwise('/');
     
     $stateProvider
         
