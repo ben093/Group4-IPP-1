@@ -73,13 +73,18 @@ body {
   font-size: 72px;
 }
 
-label, 
-select{
+label{
   height: 30px;
 }
 
+select{
+  height: 30px;
+  color: #000000;
+}
+
 input{
-  height: 25px;
+  height: 35px;
+  color: #000000;
 }
 
 footer {
@@ -120,7 +125,7 @@ img:hover{
 }
 
 .imageRows{
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
 }
 

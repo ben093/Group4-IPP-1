@@ -1,12 +1,19 @@
 <!-- public/views/game.html -->
-<div class="blurArea">
+<div class="blurArea" ng-controller="GameController">
     <h1 class="superLarge" style="color:white; margin:0 auto;"> Game Page </h1>
 </div>
 <p></p>
 <div class="blurArea">
         <div ng-repeat="imageSet in imageGroup" class="imageRows">
             <div ng-repeat="image in imageSet">
-                <img src="{{ image }}" width="125" height="125" padding="5px"/>
+                <img id="{{ image }}"ng-click="addItem($event)" src="{{ image }}" width="125" height="125" padding="5px"/>
             </div>
         </div>
+</div>
+<p></p>
+<div class="blurArea">
+	<p>Selected Set</p>
+	<div ng-repeat="selectedImg in userSet" class="imageRows">
+		<img src="{{ selectedImg }}" width="125" height="125" padding="5px"/>
+	</div>
 </div>

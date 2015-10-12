@@ -1,7 +1,7 @@
 // public/js/app.js
-angular.module('QuickSight', ['ui.router'])
+var app = angular.module('QuickSight', ['ui.router'])
 
-.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/');
     
@@ -36,28 +36,73 @@ angular.module('QuickSight', ['ui.router'])
         }); 
 });
 
-routerApp.controller('MainController', function($scope) {
+app.controller('MainController', function($scope) {
     $scope.tagline = "MainControl";
+
+    $scope.submit = function(){
+        window.location = "#/game";
+    }
 });
 
-routerApp.controller('GameController', function($scope) {
+app.controller('GameController', function($scope) {
+
+    $scope.userSet = [];
+
+    $scope.addItem = function(event){
+
+        //Uncomment to make sure you are getting the correct img id
+        //alert("clicked: " + event.target.id);
+
+        if($scope.userSet.length == 5){
+            alert("Maximun images selected.");
+        }else{
+            //push the image id into the userSet
+            $scope.userSet.push(event.target.id);
+        }
+    }
+
     $scope.tagline = "GameControl";
 
-    $scope.imageSetOne = ["bear.jpg", "camera.jpg", "circuitBoard.jpg", "donut.jpg", "earth.gif"];
-    $scope.imageSetTwo = ["fried_egg.jpg", "jackolantern.jpg", "leatherChair.jpg", "trigCalc.jpg"];
-    $scope.imageSetThree = ["math.jpg", "poker.jpg", "retroCar.jpg", "rose.jpg", "stones.jpg"];
-    $scope.imageSetFour = ["sailboat.jpg"];
+    
+
+    $scope.imageSetOne = ["./Views/imageSet/bear.jpg", 
+                            "./Views/imageSet/camera.jpg", 
+                            "./Views/imageSet/circuitBoard.jpg"];
+
+    $scope.imageSetTwo = ["./Views/imageSet/fried_egg.jpg", 
+                            "./Views/imageSet/jackolantern.jpg", 
+                            "./Views/imageSet/leatherChair.jpg"];
+
+    $scope.imageSetThree = ["./Views/imageSet/math.jpg", 
+                            "./Views/imageSet/poker.jpg", 
+                            "./Views/imageSet/retroCar.jpg"];
+
+    $scope.imageSetFour = [ "./Views/imageSet/donut.jpg", 
+                            "./Views/imageSet/earth.gif",
+                            "./Views/imageSet/stones.jpg"];
+
+    $scope.imageSetFive = [ "./Views/imageSet/trigCalc.jpg",
+                            "./Views/imageSet/rose.jpg",
+                            "./Views/imageSet/sailboat.jpg"];
+
 
     $scope.imageGroup = [$scope.imageSetOne, 
                           $scope.imageSetTwo, 
-                          $scope.imageSetThree, 
-                          $scope.imageSetFour];
+                          $scope.imageSetThree,
+                          $scope.imageSetFour,
+                          $scope.imageSetFive];
 });
 
-routerApp.controller('InfoController', function($scope) {
-    $scope.tagline = "InfoControl";
+app.controller('InfoController', function($scope) {
+    //$scope.tagline = "InfoControl";
+
+    $scope.developers = [" Benjamin Borgstede",
+                            "Casey Brown",
+                            "Spencer Martin",
+                            "Zachary Metcalf",
+                            "Anthony Van"];
 });
 
-routerApp.controller('HscoresController', function($scope) {
-    $scope.tagline = "HscoresControl";
+app.controller('HscoresController', function($scope) {
+    //$scope.tagline = "HscoresControl";
 });

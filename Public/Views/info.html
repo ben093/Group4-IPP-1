@@ -1,9 +1,10 @@
 <!-- public/views/info.html -->
-<div class="blurArea">
-        <h3>Welcome to the Info Page</h3>
-        <h4>Developers: </h4>
-        <ul ng-repeat="developer in developers">
-            <li>{{ developer.name }}</li>
-        </ul>
-        <a id="githubLink" href="https://github.com/MajorGrits/Group4-IPP.git">Github</a>
+<div ng-controller="InfoController">
+	<div class="blurArea">
+	        <h3>Welcome to the Info Page</h3>
+	        <h4>Developers: </h4>
+	        <ul ng-repeat="developer in developers">
+	            <li>{{ developer }}</li>
+	        </ul>
+	</div>
 </div>
