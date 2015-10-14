@@ -1,34 +1,45 @@
 // public/js/app.js
 var app = angular.module('QuickSight', ['ui.router'])
 
+app.factory("userData", function(){
+    return { name: "", age: "", gender: "" };
+});
+
 app.config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/');
     
     $stateProvider
         
-        // HOME STATES AND NESTED VIEWS ========================================
+        //HOME PAGE
         .state('home', {
             url: '/',
             templateUrl: 'views/home.html',
             controller: "MainController"
         })
 
-        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
+        //GAME PAGE
         .state('game', {
             url: '/game',
             templateUrl: 'views/game.html',
             controller: "GameController"
         })
 
-        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
+        //HIGH SCORES PAGE
         .state('hscores', {
             url: '/hscores',
             templateUrl: 'views/hscores.html',
             controller: "HscoresController"
         })
+
+        //PLAY GAME PAGE
+        .state('play', {
+            url: '/play',
+            templateUrl: 'views/playGame.html',
+            controller: "GameController"
+        })
         
-        // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
+        //INFO PAGE
         .state('info', {
             url: '/info',
             templateUrl: 'views/info.html',
@@ -36,17 +47,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }); 
 });
 
-app.controller('MainController', function($scope) {
+app.controller('MainController', function($scope, userData) {
     $scope.tagline = "MainControl";
+
+    $scope.userData = userData;
 
     $scope.submit = function(){
         window.location = "#/game";
     }
 });
 
-app.controller('GameController', function($scope) {
+app.controller('GameController', function($scope, userData) {
 
     $scope.userSet = [];
+
+    $scope.userData = userData;
 
     $scope.addItem = function(event){
 
@@ -55,9 +70,11 @@ app.controller('GameController', function($scope) {
 
         if($scope.userSet.length == 5){
             alert("Maximun images selected.");
-        }else{
+        }else if($.inArray(event.target.id, $scope.userSet) == -1){
             //push the image id into the userSet
             $scope.userSet.push(event.target.id);
+        }else{
+            //do not push
         }
     }
 
@@ -91,6 +108,17 @@ app.controller('GameController', function($scope) {
                           $scope.imageSetThree,
                           $scope.imageSetFour,
                           $scope.imageSetFive];
+
+    //Fires once the user is trying to commit their image set on Game Page
+    $scope.confirmImageSet = function(){
+        if($scope.userSet.length != 5){
+            alert("Must select exactly 5 images.");
+        }else{
+            //push the imageSet to the db
+            //start the game
+            window.location = '#/play';
+        }
+    }
 });
 
 app.controller('InfoController', function($scope) {
