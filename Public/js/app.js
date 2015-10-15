@@ -68,6 +68,7 @@ app.controller('GameController', function($scope, userData) {
         //Uncomment to make sure you are getting the correct img id
         //alert("clicked: " + event.target.id);
 
+        //set a requirement of 5 images
         if($scope.userSet.length == 5){
             alert("Maximun images selected.");
         }else if($.inArray(event.target.id, $scope.userSet) == -1){
@@ -78,9 +79,14 @@ app.controller('GameController', function($scope, userData) {
         }
     }
 
-    $scope.tagline = "GameControl";
+    $scope.removeItem = function(event){
+        //retrieve the index of the selected image
+        var index = $scope.userSet.indexOf(event.target.id);
+        
+        //remove the element from the userSet
+        $scope.userSet.splice(index, 1);
+    }
 
-    
 
     $scope.imageSetOne = ["./Views/imageSet/bear.jpg", 
                             "./Views/imageSet/camera.jpg", 

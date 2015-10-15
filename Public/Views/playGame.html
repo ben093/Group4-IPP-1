@@ -1,4 +1,7 @@
 <!-- public/views/playGame.html -->
 <div class="blurArea" ng-controller="GameController">
     <h2>Play Game Page</h2>
+    <div ng-repeat="selectedImg in userSet" class="imageRows">
+        <img src="{{ selectedImg }}" width="125" height="125" padding="5px"/>
+    </div>
 </div>

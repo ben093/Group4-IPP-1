@@ -1,5 +1,5 @@
 ﻿/* Styles go here */
-a{
+a {
   color:white;
 }
 
@@ -8,7 +8,7 @@ body {
     margin: 0;
     height: 100%;
     text-align: center;
-    font-family:'Neuton', serif;
+    font-family:'Fira Sans', sans-serif;
     font-size: 22px;
     width: auto;
     background-image: url('blurFull.jpg');
@@ -26,7 +26,6 @@ body {
   -moz-border-radius: 0;
   border-radius: 0px;
   text-shadow: 1px 1px 3px #000000;
-  font-family: Georgia;
   color: #ffffff;
   font-size: 20px;
   padding: 4px;
@@ -130,6 +129,7 @@ img{
   padding: 10px;
   margin-top: 0;
 }
+
 img:hover{
   -moz-box-shadow: 0 0 10px #ccc; 
   -webkit-box-shadow: 0 0 10px #ccc; 
