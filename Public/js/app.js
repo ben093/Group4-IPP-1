@@ -2,8 +2,9 @@
 var app = angular.module('QuickSight', ['ui.router'])
 
 app.factory("userData", function(){
-    return { name: "", age: "", gender: "" };
+    return { name: "", age: "", gender: "", imageSet:[]};
 });
+
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -36,7 +37,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('play', {
             url: '/play',
             templateUrl: 'views/playGame.html',
-            controller: "GameController"
+            controller: "PlayGameController"
         })
         
         //INFO PAGE
@@ -46,6 +47,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: "InfoController"
         }); 
 });
+
 
 app.controller('MainController', function($scope, userData) {
     $scope.tagline = "MainControl";
@@ -122,8 +124,44 @@ app.controller('GameController', function($scope, userData) {
         }else{
             //push the imageSet to the db
             //start the game
+            userData.imageSet = $scope.userSet;
             window.location = '#/play';
         }
+    }
+});
+
+app.controller('PlayGameController', function($scope, userData) {
+
+    $scope.userStuff = userData;
+
+    $scope.totSeconds = 60;
+
+    $scope.userScore = 0;
+
+    $scope.beginButton = function(){
+        window.setTimeout('tick', 1000);
+    }
+
+    $scope.tick = function(){
+        $scope.totSeconds -= 1;
+    }
+
+    /*function UpdateTimer(){
+        window.setTimeout('tick()', 1000);
+    }*/
+
+   /* function tick(){
+        if($scope.totSeconds <= 0){
+            $scope.gameMessage = "Time's up!";
+            return;
+        }
+
+        $scope.totSeconds -= 1;
+        UpdateTimer();
+    }*/
+
+    $scope.beginGame = function(){
+        //begin game here
     }
 });
 
@@ -139,4 +177,9 @@ app.controller('InfoController', function($scope) {
 
 app.controller('HscoresController', function($scope) {
     //$scope.tagline = "HscoresControl";
+
+    $scope.highscores = [{name: "Zeus", score: "988,234,453"},
+                         {name: "Obama",score: "22,234,363"},
+                         {name: "Beetlejuice", score: "2,838,472"},
+                         {name: "Anthony", score: "22"}];
 });
