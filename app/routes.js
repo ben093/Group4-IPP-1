@@ -10,8 +10,16 @@ module.exports = function(app) {
 
 	// frontend routes =========================================================
 	// route to handle all angular requests
-	app.get('*', function(req, res) {
+	app.get('/', function(req, res) {
 		res.sendFile(path.join(__dirname , '../public','views/index.html')); // load our public/index.html file
+	});
+
+	app.get('#/game', function(req, res){
+		if(req.query.name){
+			res.send(db.serverStatus());
+		}else{
+			res.send("test");
+		}
 	});
 
 };

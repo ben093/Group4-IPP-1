@@ -18,6 +18,10 @@ var port = process.env.PORT || 8080;
 // connect to our mongoDB database 
 // (uncomment after you enter in your own credentials in config/db.js)
 mongoose.connect(db.url);
+require('./config/models.js');
+
+//User model from mongoose
+var User = mongoose.model('User');
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json 
@@ -37,9 +41,6 @@ app.use(express.static(__dirname + '/public'));
 
 // routes ==================================================
 require('./app/routes')(app); // configure our routes
-
-
-//make the router require the db
 
 // start app ===============================================
 // startup our app at http://localhost:8080
