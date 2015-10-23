@@ -10,18 +10,18 @@ var mongoose 	   = require("mongoose");
 // configuration ===========================================
     
 // config files
-var db = require('./config/db');
+//var db = require('./config/db');
 
 // set our port
 var port = process.env.PORT || 8080; 
 
 // connect to our mongoDB database 
 // (uncomment after you enter in your own credentials in config/db.js)
-mongoose.connect(db.url);
-require('./config/models.js');
+//mongoose.connect(db.url);
+//require('./config/models.js');
 
 //User model from mongoose
-var User = mongoose.model('User');
+//var User = mongoose.model('User');
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json 
