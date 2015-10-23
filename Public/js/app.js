@@ -5,6 +5,24 @@ app.factory("userData", function(){
     return { name: "", age: "", gender: "", imageSet:[]};
 });
 
+/*app.factory("imageSets", function(){
+    $scope.animalSet = ['aliduck.jpg', 'bat.jpg', 'cat.jpg', 'coolOwn.jpeg',
+                        'dog.jpg', 'fish.jpg', 'fox.jpg', 'frog.jpg',
+                        'gecko.jpg', 'koala.jpg', 'lightsaber.jpg', 'lion.jpeg',
+                        'monkey.jpg', 'pig.jpg', 'tiger.jpg', 'turtle.jpeg', 'wolf.jpg'];
+
+    $scope.placesSet = ['bridge.jpg', 'city.jpg', 'cliff.jpg', 'cliff2.jpg',
+                        'coolbridge.jpg', 'fountain.jpg', 'huts.jpg', 'palmtree.jpg',
+                        'red.jpg', 'resort.jpg', 'river.jpg', 'space.jpg',
+                        'sweet.jpg', 'treehouse.jpg', 'woods.jpg'];
+
+    $scope.randomSet = ['apple.jpg', 'bear.jpg', 'camera.jpg', 'cheetos.jpg'];
+
+    $scope.sportsSet = [];
+
+    return fullImageSet[];
+});
+*/
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -59,15 +77,15 @@ app.controller('MainController', function($scope, $http, userData) {
     }
 });
 
-app.controller('GameController', function($scope, userData) {
+app.controller('GameController', function($scope, $http, userData) {
 
-    $scope.userSet = [1,2,3];
+    $scope.animalSet = ['aliduck.jpg', 'bat.jpg', 'cat.jpg', 'coolOwn.jpeg',
+                        'dog.jpg', 'fish.jpg', 'fox.jpg', 'frog.jpg',
+                        'gecko.jpg', 'koala.jpg', 'lightsaber.jpg'];
+    $scope.placesSet = [];
+    $scope.randomSet = [];
+    $scope.sportsSet = [];
 
-    $scope.mainImgDir = $scope.userSet.length;
-
-    $http.get('#/game').success(function(response){
-        $scope.responseData = response;
-    });
 
     $scope.addItem = function(event){
         //Uncomment to make sure you are getting the correct img id

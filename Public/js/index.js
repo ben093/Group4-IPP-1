@@ -85,6 +85,8 @@ function Garden() {
 
 var canvas = document.getElementById("maize-garden");
 var ctx    = canvas.getContext("2d");
+ctx.canvas.width = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
 var garden = new Garden();
 
 garden.grow();
