@@ -7,6 +7,7 @@
         so that we may better understand our player base. After that
         you can proceed on to the image selection.
     </h4>
+    <p>{{responseData}}</p>
     <label>Name: <input type="text" ng-model="userData.name" ng-maxlength="20" /></label>
     <label>Age: <input type="text" ng-model="userData.age" ng-maxlength="2" /></label>
     <label>Gender: </label>
@@ -14,6 +15,6 @@
         <option value="option-1">Male</option>
         <option value="option-2">Female</option>
     </select>
-    <button class="btn" ng-click="submit()">Submit</button>
+    <button class="btn btn-default" ng-click="submit()">Submit</button>
   </div>
 </div>

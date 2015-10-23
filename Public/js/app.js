@@ -49,24 +49,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
-app.controller('MainController', function($scope, userData) {
+app.controller('MainController', function($scope, $http, userData) {
     $scope.tagline = "MainControl";
 
     $scope.userData = userData;
 
     $scope.submit = function(){
-        window.location = "#/game";
+        window.location = '#/game';
     }
 });
 
 app.controller('GameController', function($scope, userData) {
 
-    $scope.userSet = [];
+    $scope.userSet = [1,2,3];
 
-    $scope.userData = userData;
+    $scope.mainImgDir = $scope.userSet.length;
+
+    $http.get('#/game').success(function(response){
+        $scope.responseData = response;
+    });
 
     $scope.addItem = function(event){
-
         //Uncomment to make sure you are getting the correct img id
         //alert("clicked: " + event.target.id);
 
@@ -88,34 +91,6 @@ app.controller('GameController', function($scope, userData) {
         //remove the element from the userSet
         $scope.userSet.splice(index, 1);
     }
-
-
-    $scope.imageSetOne = ["./Views/imageSet/bear.jpg", 
-                            "./Views/imageSet/camera.jpg", 
-                            "./Views/imageSet/circuitBoard.jpg"];
-
-    $scope.imageSetTwo = ["./Views/imageSet/fried_egg.jpg", 
-                            "./Views/imageSet/jackolantern.jpg", 
-                            "./Views/imageSet/leatherChair.jpg"];
-
-    $scope.imageSetThree = ["./Views/imageSet/math.jpg", 
-                            "./Views/imageSet/poker.jpg", 
-                            "./Views/imageSet/retroCar.jpg"];
-
-    $scope.imageSetFour = [ "./Views/imageSet/donut.jpg", 
-                            "./Views/imageSet/earth.gif",
-                            "./Views/imageSet/stones.jpg"];
-
-    $scope.imageSetFive = [ "./Views/imageSet/trigCalc.jpg",
-                            "./Views/imageSet/rose.jpg",
-                            "./Views/imageSet/sailboat.jpg"];
-
-
-    $scope.imageGroup = [$scope.imageSetOne, 
-                          $scope.imageSetTwo, 
-                          $scope.imageSetThree,
-                          $scope.imageSetFour,
-                          $scope.imageSetFive];
 
     //Fires once the user is trying to commit their image set on Game Page
     $scope.confirmImageSet = function(){

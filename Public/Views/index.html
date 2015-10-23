@@ -20,7 +20,7 @@
     <script src="js/app.js"></script>
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" position="relative">
     	<div id="content">
     	    <!-- ANGULAR DYNAMIC CONTENT -->
     	    <div ui-view></div>
@@ -36,6 +36,10 @@
                 </div>
             </div>
         </div>
+        <canvas id="maize-garden" width="1200" height="600" position="absolute"></canvas>
     </div>
 </body>
+
+<!--POST LOADED SCRIPTS-->
+<script src="js/index.js"></script>
 </html>
