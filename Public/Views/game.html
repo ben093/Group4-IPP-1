@@ -1,10 +1,26 @@
 <!-- public/views/game.html -->
 <div class="blurArea" ng-controller="GameController">
     <h1 class="superLarge" style="color:white; margin:0 auto;"> Game Page </h1>
-    <h3>Welcome, {{ userData.name }}!</h3>
+    <h3>Welcome, {{userData.name}}!</h3>
+</div>
+<div class="blurArea">
 
-    <p>{{responseData}}</p>
+    <!--
+        Might do nested UI-Views to handle the multiple image groups
+        Might be cleaner than having all the images like it is now
+    -->
+    <div class="row" ng-repeat="imageSet in imageSets">
+        <p>{{imageSet.name}}</p>
+        <div class="col-custom" ng-repeat="image in imageSet.imageSet">
+            <img id="{{imageSet.name}}/{{image}}" ng-src="Views/projectPics/{{imageSet.name}}/{{image}}" 
+            alt="Description" ng-click="addItem($event)" class="img-circle" width="100px" height="100px"/>
+        </div>
+    </div>
 </div>
 <div class="blurArea">
     <button class="btn" ng-click="confirmImageSet()">Confirm</button>
+    <p>{{userimageSet.length}}</p>
+    <div ng-repeat="image in userimageSet" class="col-custom">
+        <img ng-src="Views/projectPics/{{image}}" alt="Description" class="img-circle" ng-click="removeItem($event)"/>
+    </div>
 </div>

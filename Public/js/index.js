@@ -1,8 +1,8 @@
 function Dot() {
   this.y = Math.random() * canvas.height;
   this.x = Math.random() * canvas.width;
-  this.intervalX = (Math.random()*1.4);
-  this.intervalY = (Math.random()*1.4);
+  this.intervalX = (Math.random()*.6);
+  this.intervalY = (Math.random()*.6);
   this.onFire = false;
   this.brightness = 0;
 
@@ -36,7 +36,7 @@ function Dot() {
 
 function Garden() {
   var dots = [];
-  var dotCount = 75;
+  var dotCount = 150;
   var minDistance = 100;
   var checkConnectionBetween = function(firstDot, secondDot) {
     var distanceX = secondDot.x - firstDot.x;
@@ -88,6 +88,7 @@ var ctx    = canvas.getContext("2d");
 ctx.canvas.width = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 var garden = new Garden();
+var gardenTwo = new Garden();
 
 garden.grow();
 requestAnimationFrame(garden.loop);

@@ -2,27 +2,46 @@
 var app = angular.module('QuickSight', ['ui.router'])
 
 app.factory("userData", function(){
-    return { name: "", age: "", gender: "", imageSet:[]};
+    return { name: "", age: "", gender: ""};
 });
 
-/*app.factory("imageSets", function(){
-    $scope.animalSet = ['aliduck.jpg', 'bat.jpg', 'cat.jpg', 'coolOwn.jpeg',
-                        'dog.jpg', 'fish.jpg', 'fox.jpg', 'frog.jpg',
-                        'gecko.jpg', 'koala.jpg', 'lightsaber.jpg', 'lion.jpeg',
-                        'monkey.jpg', 'pig.jpg', 'tiger.jpg', 'turtle.jpeg', 'wolf.jpg'];
+app.factory("imageSets", function(){
 
-    $scope.placesSet = ['bridge.jpg', 'city.jpg', 'cliff.jpg', 'cliff2.jpg',
-                        'coolbridge.jpg', 'fountain.jpg', 'huts.jpg', 'palmtree.jpg',
-                        'red.jpg', 'resort.jpg', 'river.jpg', 'space.jpg',
-                        'sweet.jpg', 'treehouse.jpg', 'woods.jpg'];
+    var imageSets = [{"name": "Animals",
+                      "imageSet":
+                                    ['aliduck.jpg', 'bat.jpg', 'cat.jpg', 'coolOwl.jpeg',
+                                    'dog.jpg', 'fish.jpg', 'fox.jpg', 'frog.jpg',
+                                    'gecko.jpg', 'koala.jpg', 'lightsaber.jpg', 'lion.jpeg',
+                                    'monkey.jpg', 'pig.jpg', 'tiger.jpg', 'turtle.jpeg', 'wolf.jpg']
+                    },
+                    {"name": "Places",
+                     "imageSet" :
+                                    ['bridge.jpg', 'city.jpg', 'cliff.jpg', 'cliff2.jpg',
+                                    'coolbridge.jpg', 'fountain.jpg', 'huts.jpg', 'palmtree.jpg',
+                                    'red.jpg', 'resort.jpg', 'river.jpg', 'space.jpg',
+                                    'sweet.jpg', 'treehouse.jpg', 'woods.jpg']
+                    },
+                    {"name": "Random",
+                    "imageSet" : 
+                                    ['apple.jpg', 'bear.jpg', 'camera.jpg', 'cheetos.jpg',
+                                    'circuitBoard.jpg', 'cliffDive.jpg', 'donut.jpg', 'dragon.jpg',
+                                    'earth.gif', 'einstein.jpg', 'faceless.jpg', 'fried_egg.jpg',
+                                    'honestabe.jpg', 'hottie.jpg', 'jacked.jpg', 'jackolantern.jpg',
+                                    'leaningtower.jpg', 'leatherChair.jpg', 'math.jpg', 'mikemyers.jpg',
+                                    'paweater.jpg', 'poker.jpg', 'retroCar.jpg', 'rose.jpg',
+                                    'sailboat.jpg', 'seal.jpg', 'shark.jpg', 'skeleton.jpg',
+                                    'stones.jpg', 'trigCalc.jpg', 'vicious.jpg']
+                    },
+                    {"name" : "Sports",
+                     "imageSet" :
+                                    ['ali.jpg', 'baseball.jpg', 'basketball.jpg', 'bell.jpg', 
+                                    'bike.jpg', 'fans.jpg', 'football.jpg', 'football2.jpg',
+                                    'lacross.jpg', 'messi.jpg', 'motorcross.jpg', 'rugby.jpg',
+                                    'soccer.jpg', 'tennis.jpg', 'whistle.jpg', 'xbox.jpg']
+                    }];
 
-    $scope.randomSet = ['apple.jpg', 'bear.jpg', 'camera.jpg', 'cheetos.jpg'];
-
-    $scope.sportsSet = [];
-
-    return fullImageSet[];
+    return imageSets;
 });
-*/
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -67,8 +86,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
-app.controller('MainController', function($scope, $http, userData) {
-    $scope.tagline = "MainControl";
+app.controller('MainController', function($scope, userData) {
 
     $scope.userData = userData;
 
@@ -77,26 +95,24 @@ app.controller('MainController', function($scope, $http, userData) {
     }
 });
 
-app.controller('GameController', function($scope, $http, userData) {
+app.controller('GameController', function($scope, userData, imageSets){
 
-    $scope.animalSet = ['aliduck.jpg', 'bat.jpg', 'cat.jpg', 'coolOwn.jpeg',
-                        'dog.jpg', 'fish.jpg', 'fox.jpg', 'frog.jpg',
-                        'gecko.jpg', 'koala.jpg', 'lightsaber.jpg'];
-    $scope.placesSet = [];
-    $scope.randomSet = [];
-    $scope.sportsSet = [];
+    $scope.userData = userData;
 
+    $scope.userimageSet = [];
+
+    $scope.imageSets = imageSets;
 
     $scope.addItem = function(event){
         //Uncomment to make sure you are getting the correct img id
         //alert("clicked: " + event.target.id);
 
         //set a requirement of 5 images
-        if($scope.userSet.length == 5){
+        if($scope.userimageSet.length == 5){
             alert("Maximun images selected.");
-        }else if($.inArray(event.target.id, $scope.userSet) == -1){
-            //push the image id into the userSet
-            $scope.userSet.push(event.target.id);
+        }else if($.inArray(event.target.id, $scope.userimageSet) == -1){
+            //push the image id into the userImageSet
+            $scope.userimageSet.push(event.target.id);
         }else{
             //do not push
         }
@@ -104,10 +120,10 @@ app.controller('GameController', function($scope, $http, userData) {
 
     $scope.removeItem = function(event){
         //retrieve the index of the selected image
-        var index = $scope.userSet.indexOf(event.target.id);
+        var index = $scope.userimageSet.indexOf(event.target.id);
         
         //remove the element from the userSet
-        $scope.userSet.splice(index, 1);
+        $scope.userimageSet.splice(index, 1);
     }
 
     //Fires once the user is trying to commit their image set on Game Page
@@ -117,7 +133,7 @@ app.controller('GameController', function($scope, $http, userData) {
         }else{
             //push the imageSet to the db
             //start the game
-            userData.imageSet = $scope.userSet;
+            //userData.imageSet = $scope.userSet;
             window.location = '#/play';
         }
     }
