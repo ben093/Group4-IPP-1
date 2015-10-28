@@ -1,14 +1,12 @@
 <!-- public/views/playGame.html -->
-<div class="blurArea" ng-controller="PlayGameController">
+<div onload="init()" class="blurArea" ng-controller="PlayGameController">
     <h2>Play Game Page</h2>
     <h4>Welcome, {{userStuff.name}}!</h4>
     <div>
 	    <p>Press the button to begin!</p>
-	    <button class="btn" ng-click="beginButton()">Begin</button>
-	    <div id="gameTimer">Time Remaining: {{ totSeconds }}</div>
+	    <button class="btn" ng-click="startTimer()">Begin</button>
+        <p>Time Remaining: <div id="gameTimer"></div></p>
 	</div>
-    <div ng-repeat="selectedImg in userStuff.imageSet" class="imageRows">
-        <img src="{{ selectedImg }}" width="125" height="125" padding="5px"/>
-    </div>
     <div id="score">Total Score: {{ userScore }}</div>
+    <div id="gameLevel">Level: </div>
 </div>

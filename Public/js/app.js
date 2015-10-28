@@ -63,6 +63,42 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: "GameController"
         })
 
+        //GAME/ANIMALS PAGE
+        .state('game.animals',{
+            url: '/animals',
+            templateUrl: 'views/game.animals.html',
+            parent: 'game',
+            controller: "GameController"
+
+        })
+
+        //GAME/PLACES PAGE
+        .state('game.places',{
+            url: '/places',
+            templateUrl: 'views/game.places.html',
+            parent: 'game',
+            controller: "GameController"
+
+        })
+
+        //GAME/SPORTS PAGE
+        .state('game.sports',{
+            url: '/sports',
+            templateUrl: 'views/game.sports.html',
+            parent: 'game',
+            controller: "GameController"
+
+        })
+
+        //GAME/RANDOM PAGE
+        .state('game.random',{
+            url: '/random',
+            templateUrl: 'views/game.random.html',
+            parent: 'game',
+            controller: "GameController"
+
+        })
+
         //HIGH SCORES PAGE
         .state('hscores', {
             url: '/hscores',
@@ -85,7 +121,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }); 
 });
 
-
 app.controller('MainController', function($scope, userData) {
 
     $scope.userData = userData;
@@ -99,36 +134,36 @@ app.controller('GameController', function($scope, userData, imageSets){
 
     $scope.userData = userData;
 
-    $scope.userimageSet = [];
+    //$scope.userimageSet = [1, 2, 3, 4, 5];
+
+    $scope.userimageSet = $scope.userimageSet || { userimageSet : [] };
 
     $scope.imageSets = imageSets;
 
-    $scope.addItem = function(event){
+    $scope.addItem = function($event){
         //Uncomment to make sure you are getting the correct img id
-        //alert("clicked: " + event.target.id);
+        //alert("clicked: " + $event.target.id);
 
         //set a requirement of 5 images
-        if($scope.userimageSet.length == 5){
+        if($scope.userimageSet.userimageSet.length == 5){
             alert("Maximun images selected.");
-        }else if($.inArray(event.target.id, $scope.userimageSet) == -1){
+        }else if($.inArray($event.target.id, $scope.userimageSet.userimageSet) == -1){
             //push the image id into the userImageSet
-            $scope.userimageSet.push(event.target.id);
-        }else{
-            //do not push
-        }
+            $scope.userimageSet.userimageSet.push($event.target.id);
+        }else{ }
     }
 
-    $scope.removeItem = function(event){
+    $scope.removeItem = function($event){
         //retrieve the index of the selected image
-        var index = $scope.userimageSet.indexOf(event.target.id);
+        var index = $scope.userimageSet.userimageSet.indexOf($event.target.id);
         
         //remove the element from the userSet
-        $scope.userimageSet.splice(index, 1);
+        $scope.userimageSet.userimageSet.splice(index, 1);
     }
 
     //Fires once the user is trying to commit their image set on Game Page
     $scope.confirmImageSet = function(){
-        if($scope.userSet.length != 5){
+        if($scope.userimageSet.userimageSet.length != 5){
             alert("Must select exactly 5 images.");
         }else{
             //push the imageSet to the db

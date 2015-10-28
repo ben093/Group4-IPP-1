@@ -4,10 +4,10 @@ a {
 }
 
 body {
-    padding-top: 0px;
+    padding-top: 10px;
     padding-bottom: 10px;
     margin: 0px;
-    height: 100%;
+    height: auto;
     text-align: center;
     font-family:'Fira Sans', sans-serif;
     font-size: 22px;
@@ -18,8 +18,6 @@ body {
 .btn {
   background: #d1d1d1;
   color: #000000;
-  font-size: 12px;
-  border-radius: 0px;
 }
 
 .blurBackground {     
@@ -59,29 +57,13 @@ body {
     float: none;
     min-height: 1px;
     display: inline-block;
-}
-
-.row{
-  padding-bottom: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .superLarge{
   font-size: 72px;
-}
-
-label{
-  height: 30px;
-}
-
-select{
-  height: 30px;
-  color: #000000;
-}
-
-input{
-  height: 35px;
-  color: #000000;
-}
+} 
 
 #wrapper{
   min-height: 100%;
@@ -97,11 +79,10 @@ input{
 }
 
 #footer {
-    width: 100%;
-    height: 75px;
-    padding-bottom: 0px;
-    bottom: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 table, th, td{
@@ -127,6 +108,16 @@ img{
   padding: 2px;
   height: 100px;
   width: 100px;
+}
+
+.nav-pills > li{
+  float: none;
+  display: inline-block;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+  background-color: #d1d1d1;
+  color: #000000;
 }
 
 img:hover{

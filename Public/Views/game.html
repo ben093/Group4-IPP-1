@@ -2,25 +2,31 @@
 <div class="blurArea" ng-controller="GameController">
     <h1 class="superLarge" style="color:white; margin:0 auto;"> Game Page </h1>
     <h3>Welcome, {{userData.name}}!</h3>
-</div>
-<div class="blurArea">
 
-    <!--
-        Might do nested UI-Views to handle the multiple image groups
-        Might be cleaner than having all the images like it is now
-    -->
-    <div class="row" ng-repeat="imageSet in imageSets">
-        <p>{{imageSet.name}}</p>
-        <div class="col-custom" ng-repeat="image in imageSet.imageSet">
-            <img id="{{imageSet.name}}/{{image}}" ng-src="Views/projectPics/{{imageSet.name}}/{{image}}" 
-            alt="Description" ng-click="addItem($event)" class="img-circle" width="100px" height="100px"/>
-        </div>
-    </div>
-</div>
-<div class="blurArea">
+    <ul class="nav nav-pills">
+        <li role="presentation" class="active"><a ui-sref="game.animals" background-color="d1d1d1" colr>
+            <span class="glyphicon glyphicon-eye-open"></span> 
+            Animals</a></li>
+        <li role="presentation" class="active"><a ui-sref="game.places">
+            <span class="glyphicon glyphicon-plane"></span> 
+            Places</a></li>
+        <li role="presentation" class="active"><a ui-sref="game.sports">
+            <span class="glyphicon glyphicon-bullhorn"></span> 
+            Sports</a></li>
+        <li role="presentation" class="active"><a ui-sref="game.random">
+            <span class="glyphicon glyphicon-sunglasses"></span> 
+            Random</a></li>
+    </ul>
+
+    <!--NESTED VIEW-->
+    <div ui-view></div>
     <button class="btn" ng-click="confirmImageSet()">Confirm</button>
-    <p>{{userimageSet.length}}</p>
-    <div ng-repeat="image in userimageSet" class="col-custom">
-        <img ng-src="Views/projectPics/{{image}}" alt="Description" class="img-circle" ng-click="removeItem($event)"/>
+    <div class="row">
+        <div class="col-custom">
+            <img id="{{imageSet}}" 
+            ng-repeat="imageSet in userimageSet.userimageSet"
+            ng-src="Views/projectPics/{{imageSet}}" 
+            alt="Description" ng-click="removeItem($event)" class="img-circle" width="100px" height="100px"/>
+        </div>
     </div>
 </div>
