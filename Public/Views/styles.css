@@ -113,6 +113,7 @@ img{
 .nav-pills > li{
   float: none;
   display: inline-block;
+  padding: 5px;
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{

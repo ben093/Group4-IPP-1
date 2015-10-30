@@ -2,7 +2,7 @@
 var app = angular.module('QuickSight', ['ui.router'])
 
 app.factory("userData", function(){
-    return { name: "", age: "", gender: ""};
+    return { name: "User", age: "21", gender: "Unknown", imageSet: []};
 });
 
 app.factory("imageSets", function(){
@@ -134,11 +134,11 @@ app.controller('GameController', function($scope, userData, imageSets){
 
     $scope.userData = userData;
 
-    //$scope.userimageSet = [1, 2, 3, 4, 5];
-
     $scope.userimageSet = $scope.userimageSet || { userimageSet : [] };
 
     $scope.imageSets = imageSets;
+
+    $scope.userData.imageSet = $scope.userimageSet.userimageSet;
 
     $scope.addItem = function($event){
         //Uncomment to make sure you are getting the correct img id
@@ -174,38 +174,48 @@ app.controller('GameController', function($scope, userData, imageSets){
     }
 });
 
-app.controller('PlayGameController', function($scope, userData) {
+app.controller('PlayGameController', function($scope, $timeout, userData, imageSets) {
 
     $scope.userStuff = userData;
 
-    $scope.totSeconds = 60;
+    $scope.timeRemaining = 4;
 
     $scope.userScore = 0;
 
-    $scope.beginButton = function(){
-        window.setTimeout('tick', 1000);
-    }
+    $scope.currentLevel = 0;
 
-    $scope.tick = function(){
-        $scope.totSeconds -= 1;
-    }
+    $scope.randomImageSet = [];
 
-    /*function UpdateTimer(){
-        window.setTimeout('tick()', 1000);
-    }*/
+    $scope.curGridSize = 9;
 
-   /* function tick(){
-        if($scope.totSeconds <= 0){
-            $scope.gameMessage = "Time's up!";
-            return;
+    $scope.randomizePictureSet = function(){
+
+        while($scope.randomImageSet.length != $scope.curGridSize){
+            //
+            var randGroup = Math.floor((Math.random() * 4));
+
+            //
+            var randIndex = Math.floor((Math.random() * imageSets[randGroup].imageSet.length));
+
+            //push the random image from the random group into the set
+
+            var name = imageSets[randGroup].name + "\\" + imageSets[randGroup].imageSet[randIndex];
+            $scope.randomImageSet.push(name);
         }
+    }
 
-        $scope.totSeconds -= 1;
-        UpdateTimer();
-    }*/
+    $scope.onTimeout = function(){
+        $scope.timeRemaining--;
 
-    $scope.beginGame = function(){
-        //begin game here
+        if($scope.timeRemaining <= 0){
+            $scope.timeRemaining == 0;
+        }else{
+            timeCheck = $timeout($scope.onTimeout, 1000);
+        }
+    }
+
+    $scope.startTimer = function(){
+        var timeCheck = $timeout($scope.onTimeout,1000);
     }
 });
 
