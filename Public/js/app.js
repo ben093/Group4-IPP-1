@@ -184,23 +184,47 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 
     $scope.currentLevel = 0;
 
+    //this is the sqrt factor of the grid meaning
+    // curGridFactor squared equals the grid size
+    $scope.curGridFactor = 3;
+
     $scope.randomImageSet = [];
 
-    $scope.curGridSize = 9;
+    //push the user images
+    for(ind = 0;ind < userData.imageSet.length;ind++){ 
+        $scope.randomImageSet.push(userData.imageSet[ind]); 
+    }
+
+    $scope.getGridFactor = function(){
+        return new Array(Math.pow($scope.curGridFactor,2));
+    }
+
+    $scope.getArray = function(n){
+        return new Array(n);
+    }
 
     $scope.randomizePictureSet = function(){
 
-        while($scope.randomImageSet.length != $scope.curGridSize){
+        var usedPair = [];
+
+        var pair = { group: "", index: ""};
+
+        while($scope.randomImageSet.length != Math.pow($scope.curGridFactor,2)){
             //
             var randGroup = Math.floor((Math.random() * 4));
 
             //
             var randIndex = Math.floor((Math.random() * imageSets[randGroup].imageSet.length));
 
-            //push the random image from the random group into the set
+            pair = { group: randGroup, index: randGroup };
 
-            var name = imageSets[randGroup].name + "\\" + imageSets[randGroup].imageSet[randIndex];
-            $scope.randomImageSet.push(name);
+
+            if($.inArray(pair, usedPair) == -1){
+                //push the random image from the random group into the set
+                usedPair.push(pair);
+                var name = imageSets[randGroup].name + "\\" + imageSets[randGroup].imageSet[randIndex];
+                $scope.randomImageSet.push(name);
+            }
         }
     }
 
