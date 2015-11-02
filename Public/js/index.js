@@ -1,8 +1,11 @@
+var DOTS = 300;
+var xSPEED = 0.6;
+var ySPEED = 0.6; 
 function Dot() {
   this.y = Math.random() * canvas.height;
   this.x = Math.random() * canvas.width;
-  this.intervalX = (Math.random()*.6);
-  this.intervalY = (Math.random()*.6);
+  this.intervalX = (Math.random()*xSPEED);
+  this.intervalY = (Math.random()*ySPEED);
   this.onFire = false;
   this.brightness = 0;
 
@@ -36,7 +39,7 @@ function Dot() {
 
 function Garden() {
   var dots = [];
-  var dotCount = 150;
+  var dotCount = DOTS;
   var minDistance = 100;
   var checkConnectionBetween = function(firstDot, secondDot) {
     var distanceX = secondDot.x - firstDot.x;
