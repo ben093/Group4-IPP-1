@@ -26,15 +26,15 @@
 
             <div class="form-group">
                 <label class="col-sm-offset-1 col-sm-4 control-label">Gender: </label>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <select name="genderSelect" class="form-control" ng-model="userData.gender">
                         <option value="option-1">Male</option>
                         <option value="option-2">Female</option>
                     </select>
+                    <button class="btn btn-default col-xs-1" ng-click="submit()">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
                 </div>
-                <button class="btn btn-default col-sm-1" ng-click="submit()">
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                </button>
             </div>
         <form>
     </div>

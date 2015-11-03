@@ -1,8 +1,8 @@
-<div ng-controller="GameController">
-	<div class="row">
-		<div class="col-custom" ng-repeat="imageSet in imageSets[2].imageSet">
-	        <img id="{{imageSets[2].name}}/{{imageSet}}" ng-src="Views/projectPics/{{imageSets[2].name}}/{{imageSet}}" 
-	        alt="Description" ng-click="addItem($event)" class="img-circle" width="100px" height="100px"/>
-	    </div>
-	</div>
+<div class="row">
+	<div class="col-custom">
+        <img id="{{imageSets[2].name}}/{{imageSet}}" 
+        ng-src="Views/projectPics/{{imageSets[2].name}}/{{imageSet}}"
+        ng-repeat="imageSet in imageSets[2].imageSet" 
+        alt="Description" ng-click="addItem($event)" class="img-circle" width="100px" height="100px"/>
+    </div>
 </div>

@@ -18,10 +18,14 @@
     </div>
 
     <div class="row">
-        <div class="col-custom">
+        <div id="flexibleGrid" class="col-custom">
+            <img id="{{imageSet}}" 
+            ng-repeat="imageSet in randomImageSet"
+            ng-src="Views/projectPics/{{imageSet}}" 
+            alt="Description" class="img-circle" width="100px" height="100px"/>
         </div>
     </div>
 
-    <div id="score">Total Score: {{ userScore }}</div>
-    <div id="gameLevel">Level: </div>
+    <div id="score">Total Score: {{userScore}}</div>
+    <div id="gameLevel">Level: {{currentLevel}}</div>
 </div>

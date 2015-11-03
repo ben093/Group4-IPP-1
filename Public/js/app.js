@@ -126,7 +126,7 @@ app.controller('MainController', function($scope, userData) {
     $scope.userData = userData;
 
     $scope.submit = function(){
-        window.location = '#/game';
+        window.location = '#/game/animals';
     }
 });
 
@@ -182,7 +182,19 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 
     $scope.userScore = 0;
 
-    $scope.currentLevel = 0;
+    $scope.currentLevel = 1;
+
+    //get grid id
+    $scope.gridDOM = angular.element(document.getElementById('flexibleGrid'));
+
+    //initialize the grid to a starter size of a 3 x 3 which is 300px in width
+    //since each image is 100x100px
+    $scope.gridDOM.css('width', "300px");
+
+    //change the grid style's during the game stage
+    $scope.changeGridStyle = function(n){
+        $scope.gridDOM.css('width', String.valueOf(n) + "px");
+    }
 
     //this is the sqrt factor of the grid meaning
     // curGridFactor squared equals the grid size
@@ -193,6 +205,22 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     //push the user images
     for(ind = 0;ind < userData.imageSet.length;ind++){ 
         $scope.randomImageSet.push(userData.imageSet[ind]); 
+    }
+
+
+    $scope.shuffleArray = function(arrayInput){
+        var input = arrayInput;
+     
+        for (var i = input.length-1; i >=0; i--) {
+         
+            var randomIndex = Math.floor(Math.random()*(i+1)); 
+            var itemAtIndex = input[randomIndex]; 
+             
+            input[randomIndex] = input[i]; 
+            input[i] = itemAtIndex;
+        }
+
+        return input;
     }
 
     $scope.getGridFactor = function(){
@@ -207,7 +235,7 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 
         var usedPair = [];
 
-        var pair = { group: "", index: ""};
+        var pair = "";
 
         while($scope.randomImageSet.length != Math.pow($scope.curGridFactor,2)){
             //
@@ -216,16 +244,18 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
             //
             var randIndex = Math.floor((Math.random() * imageSets[randGroup].imageSet.length));
 
-            pair = { group: randGroup, index: randGroup };
+            pair = randGroup.toString() + randIndex.toString();
 
 
             if($.inArray(pair, usedPair) == -1){
                 //push the random image from the random group into the set
                 usedPair.push(pair);
-                var name = imageSets[randGroup].name + "\\" + imageSets[randGroup].imageSet[randIndex];
+                var name = imageSets[randGroup].name + "/" + imageSets[randGroup].imageSet[randIndex];
                 $scope.randomImageSet.push(name);
             }
         }
+
+        $scope.randomImageSet = $scope.shuffleArray($scope.randomImageSet);
     }
 
     $scope.onTimeout = function(){
