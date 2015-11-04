@@ -149,7 +149,7 @@ app.controller('GameController', function($scope, userData, imageSets){
             alert("Maximun images selected.");
         }else if($.inArray($event.target.id, $scope.userimageSet.userimageSet) == -1){
             //push the image id into the userImageSet
-            $scope.userimageSet.userimageSet.push($event.target.id);
+            $scope.userimageSet.userimageSet.push($event.target.id.trim());
         }else{ }
     }
 
@@ -177,22 +177,22 @@ app.controller('GameController', function($scope, userData, imageSets){
 app.controller('PlayGameController', function($scope, $timeout, userData, imageSets) {
 
     $scope.userStuff = userData;
-
     $scope.timeRemaining = 10;
-
     $scope.userScore = 0;
-
     $scope.currentLevel = 1;
-
     $scope.wrongImgSubtractor = 1;
+    $scope.randomImageSet = [];
+    $scope.usedPair = [];
+	$scope.correctSelections = 0;
+	$scope.timerStarted = false;
+	
+	for(int i = 0; i < $scope.userStuff.imageSet.length;i++){
+		
+	}
 
      //this is the sqrt factor of the grid meaning
     // curGridFactor squared equals the grid size
     $scope.curGridFactor = 3;
-
-    $scope.randomImageSet = [];
-
-    $scope.usedPair = [];
 
     //will hold the selected images that 
     // the user selects during the game stage
@@ -204,32 +204,54 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     //initialize the grid to a starter size of a 3 x 3 which is 300px in width
     //since each image is 100x100px
     $scope.gridDOM.css('width', "375px");
+	
+	$scope.nextLevel = function(){
+		$scope.currentLevel += 1;
+		
+		if($scope.currentLevel == 18){
+			//max level
+		}else{
+			//reset all values
+			//increment grid factor if level is 4, 7, 10, 13, 16
+			//4 -> 4x4
+			//7 -> 5x5
+			//10-> 6x6
+			//13-> 7x7
+			//16-> 8x8
+		}
+	}
 
     //change the grid style's during the game stage
     $scope.changeGridStyle = function(n){
-        $scope.gridDOM.css('width', String.valueOf(n) + "px");
+		var gridDOM = angular.element(document.getElementById('flexibleGrid'));
+        gridDOM.css('width', String.valueOf(n) + "px");
     }
 
     //push the user images
     for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
         $scope.randomImageSet.push($scope.userStuff.imageSet[ind]); 
     }
-
+	
+	//logic for when a user selects an image during the game state
     $scope.selectImg = function($event){
-
-        alert($event.target.id);
-        if($.inArray($scope.userStuff.imageSet, $event.target.id) == -1){
-            if($scope.timeRemaining > 1){
+		
+		if($scope.timerStarted == false){
+			$scope.startTimer();
+			$scope.timerStarted = true;
+		}
+		
+        if($.inArray($event.target.id.trim(),$scope.userStuff.imageSet) == -1){
+            if($scope.timeRemaining >= 1){
                 $scope.timeRemaining = $scope.timeRemaining - $scope.wrongImgSubtractor;
             }
             var tempDOM = document.getElementById($event.target.id);
             tempDOM.src = "./Views/crossmarkBox.png";
-        }else if($.inArray($scope.userStuff.imageSet, $event.target.id) != -1){
+        }else if($.inArray($event.target.id.trim(),$scope.userStuff.imageSet) != -1){
             var tempDOM = document.getElementById($event.target.id);
             tempDOM.src = "./Views/checkMark.png";
-        }else{}
+			$scope.correctSelections++;
+        }
     }
-
 
     $scope.shuffleArray = function(arrayInput){
         var input = arrayInput;
@@ -282,10 +304,19 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     $scope.onTimeout = function(){
         
         if($scope.timeRemaining <= 0){
-            var tempDOM = document.getElementById('timerMsg');
-            tempDOM.innerHTML = "GAME'S OVER SLOWPOKE!";
+			var timerMsgDOM = document.getElementById('timerMsg');
+			var gameOverBtnDOM = document.getElementById('gameOverBtn');
+            timerMsgDOM.innerHTML = "GAME'S OVER SLOWPOKE!";
+			gameOverBtnDOM.className = "btn btn-default";
             $scope.timeRemaining == 0;
-        }else{
+        }else if($scope.correctSelections == $scope.userStuff.imageSet.length){
+			var timerMsgDOM = document.getElementById('timerMsg');
+			var nextLevelBtnDOM = document.getElementById('nextLevelBtn');
+			timerMsgDOM.innerHTML = "YOU WIN!";
+			nextLevelBtnDOM.className = "btn btn-default";
+			$scope.timeRemaining = $scope.timeRemaining;
+		}
+		else{
             timeCheck = $timeout($scope.onTimeout, 1000);
              $scope.timeRemaining--;
         }
@@ -293,6 +324,8 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 
     $scope.startTimer = function(){
         var timeCheck = $timeout($scope.onTimeout,1000);
+		var tempDOM = document.getElementById("gameImagesRow");
+		tempDOM.className = "row";
     }
 });
 
