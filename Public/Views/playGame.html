@@ -4,24 +4,20 @@
     <h4>Welcome, {{userStuff.name}}!</h4>
     <div>
 	    <p>Press the button to begin!</p>
-	    <button class="btn" ng-click="startTimer()">Begin</button>
-        <p>Time Remaining: {{timeRemaining}}</p>
+        <h2 id="timerMsg">Time Remaining: {{timeRemaining}}</h2>
+        <button class="btn" ng-click="startTimer()">Begin</button>
 	</div>
 
-    <div class="row">
-        <div class="col-custom">
-            <img id="{{imageSet}}" 
-            ng-repeat="imageSet in userStuff.imageSet"
-            ng-src="Views/projectPics/{{imageSet}}" 
-            alt="Description" class="img-circle" width="100px" height="100px"/>
-        </div>
+    <div>
+        <p ng-repeat="thing in userStuff.imageSet">{{thing}}</p>
     </div>
 
     <div class="row">
         <div id="flexibleGrid" class="col-custom">
             <img id="{{imageSet}}" 
             ng-repeat="imageSet in randomImageSet"
-            ng-src="Views/projectPics/{{imageSet}}" 
+            ng-src="Views/projectPics/{{imageSet}}"
+            ng-click="selectImg($event); startTimer()"
             alt="Description" class="img-circle" width="100px" height="100px"/>
         </div>
     </div>

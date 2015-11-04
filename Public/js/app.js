@@ -2,7 +2,7 @@
 var app = angular.module('QuickSight', ['ui.router'])
 
 app.factory("userData", function(){
-    return { name: "User", age: "21", gender: "Unknown", imageSet: []};
+    return { name: "Person who forgot their own name", age: "Lazy-years-old", gender: "Unicorn", imageSet: []};
 });
 
 app.factory("imageSets", function(){
@@ -178,33 +178,56 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 
     $scope.userStuff = userData;
 
-    $scope.timeRemaining = 4;
+    $scope.timeRemaining = 10;
 
     $scope.userScore = 0;
 
     $scope.currentLevel = 1;
+
+    $scope.wrongImgSubtractor = 1;
+
+     //this is the sqrt factor of the grid meaning
+    // curGridFactor squared equals the grid size
+    $scope.curGridFactor = 3;
+
+    $scope.randomImageSet = [];
+
+    $scope.usedPair = [];
+
+    //will hold the selected images that 
+    // the user selects during the game stage
+    $scope.userSelectedImages = [];
 
     //get grid id
     $scope.gridDOM = angular.element(document.getElementById('flexibleGrid'));
 
     //initialize the grid to a starter size of a 3 x 3 which is 300px in width
     //since each image is 100x100px
-    $scope.gridDOM.css('width', "300px");
+    $scope.gridDOM.css('width', "375px");
 
     //change the grid style's during the game stage
     $scope.changeGridStyle = function(n){
         $scope.gridDOM.css('width', String.valueOf(n) + "px");
     }
 
-    //this is the sqrt factor of the grid meaning
-    // curGridFactor squared equals the grid size
-    $scope.curGridFactor = 3;
-
-    $scope.randomImageSet = [];
-
     //push the user images
-    for(ind = 0;ind < userData.imageSet.length;ind++){ 
-        $scope.randomImageSet.push(userData.imageSet[ind]); 
+    for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
+        $scope.randomImageSet.push($scope.userStuff.imageSet[ind]); 
+    }
+
+    $scope.selectImg = function($event){
+
+        alert($event.target.id);
+        if($.inArray($scope.userStuff.imageSet, $event.target.id) == -1){
+            if($scope.timeRemaining > 1){
+                $scope.timeRemaining = $scope.timeRemaining - $scope.wrongImgSubtractor;
+            }
+            var tempDOM = document.getElementById($event.target.id);
+            tempDOM.src = "./Views/crossmarkBox.png";
+        }else if($.inArray($scope.userStuff.imageSet, $event.target.id) != -1){
+            var tempDOM = document.getElementById($event.target.id);
+            tempDOM.src = "./Views/checkMark.png";
+        }else{}
     }
 
 
@@ -233,8 +256,6 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 
     $scope.randomizePictureSet = function(){
 
-        var usedPair = [];
-
         var pair = "";
 
         while($scope.randomImageSet.length != Math.pow($scope.curGridFactor,2)){
@@ -247,9 +268,9 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
             pair = randGroup.toString() + randIndex.toString();
 
 
-            if($.inArray(pair, usedPair) == -1){
+            if($.inArray(pair, $scope.usedPair) == -1){
                 //push the random image from the random group into the set
-                usedPair.push(pair);
+                $scope.usedPair.push(pair);
                 var name = imageSets[randGroup].name + "/" + imageSets[randGroup].imageSet[randIndex];
                 $scope.randomImageSet.push(name);
             }
@@ -259,12 +280,14 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     }
 
     $scope.onTimeout = function(){
-        $scope.timeRemaining--;
-
+        
         if($scope.timeRemaining <= 0){
+            var tempDOM = document.getElementById('timerMsg');
+            tempDOM.innerHTML = "GAME'S OVER SLOWPOKE!";
             $scope.timeRemaining == 0;
         }else{
             timeCheck = $timeout($scope.onTimeout, 1000);
+             $scope.timeRemaining--;
         }
     }
 
