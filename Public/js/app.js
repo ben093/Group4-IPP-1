@@ -175,7 +175,8 @@ app.controller('GameController', function($scope, userData, imageSets){
 });
 
 app.controller('PlayGameController', function($scope, $timeout, userData, imageSets) {
-
+	
+	//variables
     $scope.userStuff = userData;
     $scope.timeRemaining = 10;
     $scope.userScore = 0;
@@ -185,10 +186,6 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     $scope.usedPair = [];
 	$scope.correctSelections = 0;
 	$scope.timerStarted = false;
-	
-	for(int i = 0; i < $scope.userStuff.imageSet.length;i++){
-		
-	}
 
      //this is the sqrt factor of the grid meaning
     // curGridFactor squared equals the grid size
@@ -201,15 +198,14 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     //get grid id
     $scope.gridDOM = angular.element(document.getElementById('flexibleGrid'));
 
-    //initialize the grid to a starter size of a 3 x 3 which is 300px in width
-    //since each image is 100x100px
+    //initialize the grid to a starter size of a 3 x 3 which is 375px in width
+    //since each image is 125x125px
     $scope.gridDOM.css('width', "375px");
 	
 	$scope.nextLevel = function(){
-		$scope.currentLevel += 1;
 		
 		if($scope.currentLevel == 18){
-			//max level
+			//max level finished
 		}else{
 			//reset all values
 			//increment grid factor if level is 4, 7, 10, 13, 16
@@ -218,13 +214,20 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 			//10-> 6x6
 			//13-> 7x7
 			//16-> 8x8
+			//if curLevel % 3 == 0 up grid factor
+			$scope.curGridFactor += 1;
+			$scope.currentLevel += 1;
+			
+			//update grid size
+			//$scope.changeGridStyle($scope.curGridFactor);
+			//$scope.randomizePictureSet();
 		}
 	}
 
     //change the grid style's during the game stage
     $scope.changeGridStyle = function(n){
 		var gridDOM = angular.element(document.getElementById('flexibleGrid'));
-        gridDOM.css('width', String.valueOf(n) + "px");
+        gridDOM.css('width', String.valueOf(n * 125) + "px");
     }
 
     //push the user images
@@ -253,6 +256,7 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
         }
     }
 
+	//shuffle the random array
     $scope.shuffleArray = function(arrayInput){
         var input = arrayInput;
      
@@ -271,7 +275,7 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     $scope.getGridFactor = function(){
         return new Array(Math.pow($scope.curGridFactor,2));
     }
-
+	
     $scope.getArray = function(n){
         return new Array(n);
     }
@@ -323,9 +327,15 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     }
 
     $scope.startTimer = function(){
-        var timeCheck = $timeout($scope.onTimeout,1000);
-		var tempDOM = document.getElementById("gameImagesRow");
-		tempDOM.className = "row";
+		
+		if($scope.userStuff.imageSet.length == 0){
+			//redirect to game page to select image set
+			window.location = '#/game/animals';
+		}else{
+			var timeCheck = $timeout($scope.onTimeout,1000);
+			var tempDOM = document.getElementById("gameImagesRow");
+			tempDOM.className = "row";
+		}
     }
 });
 
