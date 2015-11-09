@@ -9,7 +9,7 @@
     <div id="gameImagesRow"class="row hidden">
         <div id="flexibleGrid" class="col-custom">
             <img id="{{imageSet}}" 
-            ng-repeat="imageSet in randomImageSet"
+            ng-repeat="imageSet in randomImageSet track by $index"
             ng-src="Views/projectPics/{{imageSet}}"
             ng-click="selectImg($event);"
             alt="Description" class="img-circle" width="100px" height="100px"/>

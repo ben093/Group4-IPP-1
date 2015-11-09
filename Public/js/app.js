@@ -197,11 +197,11 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     $scope.userSelectedImages = [];
 
     //get grid id
-    $scope.gridDOM = angular.element(document.getElementById('flexibleGrid'));
+    $scope.gridDOM = document.getElementById('flexibleGrid');
 
     //initialize the grid to a starter size of a 3 x 3 which is 375px in width
     //since each image is 125x125px
-    $scope.gridDOM.css('width', "375px");
+    $scope.gridDOM.style.width = "375px";
 	
 	$scope.nextLevel = function(){
 		
@@ -230,15 +230,20 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
             tempGameImagesRowDOM.className += ' hidden';
 
 			//update grid size
-			$scope.gridDOM.css("width", String.valueOf($scope.curGridFactor * 125) + "px");
+            var tempWidth = String.valueOf($scope.curGridFactor * 125);
+            tempWidth += "px";
+			$scope.gridDOM.style.width = tempWidth;
 
-            alert($scope.curGridFactor);
+            //TESTING ONLY
+            //remove comments to see the current grid factor
+            //alert($scope.curGridFactor);
 
             //clear the current random pictures
             $scope.randomImageSet = [];
 
-            $scope.userStuff.imageSet = [];
-            //$scope.userImageSet
+            //re-initialize the userStuff.imageSet via re-copying the original 
+            // userData.imageSet via the saved userImageSet
+            $scope.userStuff.imageSet = $scope.userImageSet;
 
             //re-insert the user images into the random image set
             for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
@@ -274,6 +279,9 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
             var tempDOM = document.getElementById($event.target.id);
             tempDOM.src = "./Views/checkMark.png";
 			$scope.correctSelections++;
+        }
+        else{
+            alert($event.target.id);
         }
     }
 
