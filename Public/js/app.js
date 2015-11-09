@@ -178,6 +178,7 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 	
 	//variables
     $scope.userStuff = userData;
+    $scope.userImageSet = userData.imageSet;
     $scope.timeRemaining = 10;
     $scope.userScore = 0;
     $scope.currentLevel = 1;
@@ -217,18 +218,37 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 			//if curLevel % 3 == 0 up grid factor
 			$scope.curGridFactor += 1;
 			$scope.currentLevel += 1;
-			
+            $scope.correctSelections = 0;
+            $scope.timerStarted = false;
+
+            //re-hide the next level button
+            var tempNextLevelDOM = document.getElementById('nextLevelBtn');
+            tempNextLevelDOM.className += ' hidden';
+
+            //re-hide the grid images of pictures
+			var tempGameImagesRowDOM = document.getElementById('gameImagesRow');
+            tempGameImagesRowDOM.className += ' hidden';
+
 			//update grid size
-			//$scope.changeGridStyle($scope.curGridFactor);
-			//$scope.randomizePictureSet();
+			$scope.gridDOM.css("width", String.valueOf($scope.curGridFactor * 125) + "px");
+
+            alert($scope.curGridFactor);
+
+            //clear the current random pictures
+            $scope.randomImageSet = [];
+
+            $scope.userStuff.imageSet = [];
+            //$scope.userImageSet
+
+            //re-insert the user images into the random image set
+            for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
+                $scope.randomImageSet.push($scope.userStuff.imageSet[ind]); 
+            }
+
+            //re-populate the random pictures with...you guessed it...random pictures
+			$scope.randomizePictureSet();
 		}
 	}
-
-    //change the grid style's during the game stage
-    $scope.changeGridStyle = function(n){
-		var gridDOM = angular.element(document.getElementById('flexibleGrid'));
-        gridDOM.css('width', String.valueOf(n * 125) + "px");
-    }
 
     //push the user images
     for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
@@ -238,6 +258,7 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 	//logic for when a user selects an image during the game state
     $scope.selectImg = function($event){
 		
+        //if timer is already started do not create another timer
 		if($scope.timerStarted == false){
 			$scope.startTimer();
 			$scope.timerStarted = true;
@@ -327,7 +348,10 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     }
 
     $scope.startTimer = function(){
-		
+
+        //set the timer boolean
+		$scope.timerStarted = true;
+
 		if($scope.userStuff.imageSet.length == 0){
 			//redirect to game page to select image set
 			window.location = '#/game/animals';
