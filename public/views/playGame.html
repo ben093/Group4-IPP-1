@@ -1,0 +1,22 @@
+<!-- public/views/playGame.html -->
+<div class="blurArea" ng-controller="PlayGameController"  ng-init="randomizePictureSet()">
+    <h4>Welcome, {{userStuff.name}}!</h4>
+    <div>
+        <h1 id="timerMsg">Time Remaining: {{timeRemaining}}</h1>
+        <button class="btn" ng-click="startTimer()">Begin</button>
+	</div>
+
+    <div id="gameImagesRow"class="row hidden">
+        <div id="flexibleGrid" class="col-custom">
+            <img id="{{imageSet}}" 
+            ng-repeat="imageSet in randomImageSet"
+            ng-src="Views/projectPics/{{imageSet}}"
+            ng-click="selectImg($event);"
+            alt="Description" class="img-circle" width="100px" height="100px"/>
+        </div>
+    </div>
+    <div>Total Score: {{userScore}} Level: {{currentLevel}}</div>
+	
+	<button id="gameOverBtn" class="btn btn-default hidden">REVIEW MY GAME</button>
+	<button id="nextLevelBtn" class="btn btn-default hidden" ng-click="nextLevel()">NEXT LEVEL</button>
+</div>
