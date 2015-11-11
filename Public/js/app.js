@@ -2,7 +2,7 @@
 var app = angular.module('QuickSight', ['ui.router'])
 
 app.factory("userData", function(){
-    return { name: "User", age: "21", gender: "Unknown", imageSet: []};
+    return { name: "Person who forgot their own name", age: "Lazy-years-old", gender: "Unicorn", imageSet: []};
 });
 
 app.factory("imageSets", function(){
@@ -126,7 +126,7 @@ app.controller('MainController', function($scope, userData) {
     $scope.userData = userData;
 
     $scope.submit = function(){
-        window.location = '#/game';
+        window.location = '#/game/animals';
     }
 });
 
@@ -149,7 +149,7 @@ app.controller('GameController', function($scope, userData, imageSets){
             alert("Maximun images selected.");
         }else if($.inArray($event.target.id, $scope.userimageSet.userimageSet) == -1){
             //push the image id into the userImageSet
-            $scope.userimageSet.userimageSet.push($event.target.id);
+            $scope.userimageSet.userimageSet.push($event.target.id.trim());
         }else{ }
     }
 
@@ -175,39 +175,143 @@ app.controller('GameController', function($scope, userData, imageSets){
 });
 
 app.controller('PlayGameController', function($scope, $timeout, userData, imageSets) {
-
+	
+	//variables
     $scope.userStuff = userData;
-
-    $scope.timeRemaining = 4;
-
+    $scope.userImageSet = userData.imageSet;
+    $scope.timeRemaining = 10;
     $scope.userScore = 0;
+    $scope.currentLevel = 1;
+    $scope.wrongImgSubtractor = 1;
+    $scope.randomImageSet = [];
+    $scope.usedPair = [];
+	$scope.correctSelections = 0;
+	$scope.timerStarted = false;
 
-    $scope.currentLevel = 0;
-
-    //this is the sqrt factor of the grid meaning
+     //this is the sqrt factor of the grid meaning
     // curGridFactor squared equals the grid size
     $scope.curGridFactor = 3;
 
-    $scope.randomImageSet = [];
+    //will hold the selected images that 
+    // the user selects during the game stage
+    $scope.userSelectedImages = [];
+
+    //get grid id
+    $scope.gridDOM = document.getElementById('flexibleGrid');
+
+    //initialize the grid to a starter size of a 3 x 3 which is 375px in width
+    //since each image is 125x125px
+    $scope.gridDOM.style.width = "375px";
+	
+	$scope.nextLevel = function(){
+		
+		if($scope.currentLevel == 18){
+			//max level finished
+		}else{
+			//reset all values
+			//increment grid factor if level is 4, 7, 10, 13, 16
+			//4 -> 4x4
+			//7 -> 5x5
+			//10-> 6x6
+			//13-> 7x7
+			//16-> 8x8
+			//if curLevel % 3 == 0 up grid factor
+			$scope.curGridFactor += 1;
+			$scope.currentLevel += 1;
+            $scope.correctSelections = 0;
+            $scope.timerStarted = false;
+
+            //re-hide the next level button
+            var tempNextLevelDOM = document.getElementById('nextLevelBtn');
+            tempNextLevelDOM.className += ' hidden';
+
+            //re-hide the grid images of pictures
+			var tempGameImagesRowDOM = document.getElementById('gameImagesRow');
+            tempGameImagesRowDOM.className += ' hidden';
+
+			//update grid size
+            var tempWidth = String.valueOf($scope.curGridFactor * 125);
+            tempWidth += "px";
+			$scope.gridDOM.style.width = tempWidth;
+
+            //TESTING ONLY
+            //remove comments to see the current grid factor
+            //alert($scope.curGridFactor);
+
+            //clear the current random pictures
+            $scope.randomImageSet = [];
+
+            //re-initialize the userStuff.imageSet via re-copying the original 
+            // userData.imageSet via the saved userImageSet
+            $scope.userStuff.imageSet = $scope.userImageSet;
+
+            //re-insert the user images into the random image set
+            for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
+                $scope.randomImageSet.push($scope.userStuff.imageSet[ind]); 
+            }
+
+            //re-populate the random pictures with...you guessed it...random pictures
+			$scope.randomizePictureSet();
+		}
+	}
 
     //push the user images
-    for(ind = 0;ind < userData.imageSet.length;ind++){ 
-        $scope.randomImageSet.push(userData.imageSet[ind]); 
+    for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
+        $scope.randomImageSet.push($scope.userStuff.imageSet[ind]); 
+    }
+	
+	//logic for when a user selects an image during the game state
+    $scope.selectImg = function($event){
+		
+        //if timer is already started do not create another timer
+		if($scope.timerStarted == false){
+			$scope.startTimer();
+			$scope.timerStarted = true;
+		}
+		
+        if($.inArray($event.target.id.trim(),$scope.userStuff.imageSet) == -1){
+            if($scope.timeRemaining >= 1){
+                $scope.timeRemaining = $scope.timeRemaining - $scope.wrongImgSubtractor;
+            }
+            var tempDOM = document.getElementById($event.target.id);
+            tempDOM.src = "./Views/crossmarkBox.png";
+        }else if($.inArray($event.target.id.trim(),$scope.userStuff.imageSet) != -1){
+            var tempDOM = document.getElementById($event.target.id);
+            tempDOM.src = "./Views/checkMark.png";
+			$scope.correctSelections++;
+        }
+        else{
+            alert($event.target.id);
+        }
+    }
+
+	//shuffle the random array
+    $scope.shuffleArray = function(arrayInput){
+        var input = arrayInput;
+     
+        for (var i = input.length-1; i >=0; i--) {
+         
+            var randomIndex = Math.floor(Math.random()*(i+1)); 
+            var itemAtIndex = input[randomIndex]; 
+             
+            input[randomIndex] = input[i]; 
+            input[i] = itemAtIndex;
+        }
+
+        return input;
     }
 
     $scope.getGridFactor = function(){
         return new Array(Math.pow($scope.curGridFactor,2));
     }
-
+	
     $scope.getArray = function(n){
         return new Array(n);
     }
 
     $scope.randomizePictureSet = function(){
 
-        var usedPair = [];
-
-        var pair = { group: "", index: ""};
+        var pair = "";
 
         while($scope.randomImageSet.length != Math.pow($scope.curGridFactor,2)){
             //
@@ -216,30 +320,54 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
             //
             var randIndex = Math.floor((Math.random() * imageSets[randGroup].imageSet.length));
 
-            pair = { group: randGroup, index: randGroup };
+            pair = randGroup.toString() + randIndex.toString();
 
 
-            if($.inArray(pair, usedPair) == -1){
+            if($.inArray(pair, $scope.usedPair) == -1){
                 //push the random image from the random group into the set
-                usedPair.push(pair);
-                var name = imageSets[randGroup].name + "\\" + imageSets[randGroup].imageSet[randIndex];
+                $scope.usedPair.push(pair);
+                var name = imageSets[randGroup].name + "/" + imageSets[randGroup].imageSet[randIndex];
                 $scope.randomImageSet.push(name);
             }
         }
+
+        $scope.randomImageSet = $scope.shuffleArray($scope.randomImageSet);
     }
 
     $scope.onTimeout = function(){
-        $scope.timeRemaining--;
-
+        
         if($scope.timeRemaining <= 0){
+			var timerMsgDOM = document.getElementById('timerMsg');
+			var gameOverBtnDOM = document.getElementById('gameOverBtn');
+            timerMsgDOM.innerHTML = "GAME'S OVER SLOWPOKE!";
+			gameOverBtnDOM.className = "btn btn-default";
             $scope.timeRemaining == 0;
-        }else{
+        }else if($scope.correctSelections == $scope.userStuff.imageSet.length){
+			var timerMsgDOM = document.getElementById('timerMsg');
+			var nextLevelBtnDOM = document.getElementById('nextLevelBtn');
+			timerMsgDOM.innerHTML = "YOU WIN!";
+			nextLevelBtnDOM.className = "btn btn-default";
+			$scope.timeRemaining = $scope.timeRemaining;
+		}
+		else{
             timeCheck = $timeout($scope.onTimeout, 1000);
+             $scope.timeRemaining--;
         }
     }
 
     $scope.startTimer = function(){
-        var timeCheck = $timeout($scope.onTimeout,1000);
+
+        //set the timer boolean
+		$scope.timerStarted = true;
+
+		if($scope.userStuff.imageSet.length == 0){
+			//redirect to game page to select image set
+			window.location = '#/game/animals';
+		}else{
+			var timeCheck = $timeout($scope.onTimeout,1000);
+			var tempDOM = document.getElementById("gameImagesRow");
+			tempDOM.className = "row";
+		}
     }
 });
 

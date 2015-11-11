@@ -1,27 +1,23 @@
 <!-- public/views/playGame.html -->
 <div class="blurArea" ng-controller="PlayGameController"  ng-init="randomizePictureSet()">
-    <h2>Play Game Page</h2>
     <h4>Welcome, {{userStuff.name}}!</h4>
     <div>
-	    <p>Press the button to begin!</p>
-	    <button class="btn" ng-click="startTimer()">Begin</button>
-        <p>Time Remaining: {{timeRemaining}}</p>
+        <h1 id="timerMsg">Time Remaining: {{timeRemaining}}</h1>
+        <button class="btn" ng-click="startTimer()">Begin</button>
 	</div>
 
-    <div class="row">
-        <div class="col-custom">
+    <div id="gameImagesRow"class="row hidden">
+        <div id="flexibleGrid" class="col-custom">
             <img id="{{imageSet}}" 
-            ng-repeat="imageSet in userStuff.imageSet"
-            ng-src="Views/projectPics/{{imageSet}}" 
+            ng-repeat="imageSet in randomImageSet track by $index"
+            ng-src="Views/projectPics/{{imageSet}}"
+            ng-click="selectImg($event);"
             alt="Description" class="img-circle" width="100px" height="100px"/>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-custom">
-        </div>
-    </div>
-
-    <div id="score">Total Score: {{ userScore }}</div>
-    <div id="gameLevel">Level: </div>
+    <div>Total Score: {{userScore}} Level: {{currentLevel}}</div>
+    <div>TESTING ONLY: currentGridFactor {{curGridFactor}}</div>
+	
+	<button id="gameOverBtn" class="btn btn-default hidden">REVIEW MY GAME</button>
+	<button id="nextLevelBtn" class="btn btn-default hidden" ng-click="nextLevel()">NEXT LEVEL</button>
 </div>

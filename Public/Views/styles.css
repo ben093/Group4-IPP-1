@@ -23,8 +23,6 @@ body {
 .blurBackground {     
   position: absolute;
   top: 0px;
-  right: 0px;
-  bottom: 0px;
   left: 0px;
   z-index: 99;
 
@@ -47,24 +45,24 @@ body {
   position: relative;
   z-index: 100;
   padding: 20px;
+  width: 66%;
   background: rgb(10, 10, 10); /* for IE */
   background: rgba(10, 10 ,10 ,0.75);
   color: white;
 }
 
 .col-custom {
-    position: relative;
-    float: none;
     min-height: 1px;
     display: inline-block;
     padding-top: 10px;
     padding-bottom: 10px;
+    width: 66%;
+    margin: 0 auto;
 }
 
 .superLarge{
   font-size: 72px;
 } 
-
 #wrapper{
   min-height: 100%;
   position: relative;
@@ -106,8 +104,8 @@ ul {
 
 img{
   padding: 2px;
-  height: 100px;
-  width: 100px;
+  height: 125px;
+  width: 125px;
 }
 
 .nav-pills > li{
