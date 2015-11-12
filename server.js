@@ -9,6 +9,11 @@ var mongoose 	   = require("mongoose");
 
 // configuration ===========================================
     
+// get all data/stuff of the body (POST) parameters
+// parse application/json 
+app.use(bodyParser.json()); 
+
+
 // config files
 //var db = require('./config/db');
 
@@ -23,9 +28,16 @@ var port = process.env.PORT || 8080;
 //User model from mongoose
 //var User = mongoose.model('User');
 
-// get all data/stuff of the body (POST) parameters
-// parse application/json 
-app.use(bodyParser.json()); 
+Images = require(__dirname + '/app/models/image');
+HighScores = require(__dirname + '/app/models/highScores');
+UserResults = require(__dirname + '/app/models/userResult');
+mongoose.connect('mongodb://localhost/qsdb');
+var db = mongoose.connection;
+
+// test server requests get, post, put, and delete use resteasy chrome extention
+
+
+
 //
 // parse application/vnd.api+json as json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
