@@ -17,6 +17,7 @@ module.exports = function(app) {
 			res.json(images);
 		});
 	});
+	
 	app.get('/api/highScores', function(req, res) { // 29:00
 		HighScores.getHighScores(function(err, hScores) {
 			if (err) {
