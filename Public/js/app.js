@@ -43,6 +43,11 @@ app.factory("imageSets", function(){
     return imageSets;
 });
 
+app.factory("gameData", function(){
+    return { score: 0, correctSelections : 0, imageStreak: 0 };
+});
+
+//function that will handle the routing of the front end
 app.config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/');
@@ -112,6 +117,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'views/playGame.html',
             controller: "PlayGameController"
         })
+
+        //REVIEW GAME PAGE
+        .state('reviewGame',{
+            url: '/review',
+            templateUrl: 'views/reviewGame.html',
+            controller: "ReviewGameController"
+        })
         
         //INFO PAGE
         .state('info', {
@@ -174,19 +186,22 @@ app.controller('GameController', function($scope, userData, imageSets){
     }
 });
 
-app.controller('PlayGameController', function($scope, $timeout, userData, imageSets) {
+app.controller('PlayGameController', function($scope, $timeout, userData, imageSets, gameData) {
 	
-	//variables
+	//user data variables
     $scope.userStuff = userData;
     $scope.userImageSet = userData.imageSet;
+
+    //game variables
     $scope.timeRemaining = 10;
-    $scope.userScore = 0;
     $scope.currentLevel = 1;
     $scope.wrongImgSubtractor = 1;
     $scope.randomImageSet = [];
-    $scope.usedPair = [];
+    $scope.timerStarted = false;
+
+    //user game data
+    $scope.userScore = 0;
 	$scope.correctSelections = 0;
-	$scope.timerStarted = false;
     $scope.imageStreak = 0;
 
      //this is the sqrt factor of the grid meaning
@@ -196,13 +211,6 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     //will hold the selected images that 
     // the user selects during the game stage
     $scope.userSelectedImages = [];
-
-    //get grid id
-    $scope.gridDOM = document.getElementById('flexibleGrid');
-
-    //initialize the grid to a starter size of a 3 x 3 which is 375px in width
-    //since each image is 125x125px
-    $scope.gridDOM.style.width = "375px";
 
     //push the user images to the randomSet
     for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
@@ -222,9 +230,27 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 			//13-> 7x7
 			//16-> 8x8
 			//if curLevel % 3 == 0 up grid factor
-			$scope.curGridFactor += 1;
+
+            //Change the grid factor based on level
+            // level logic is explain above
+            // if( $scope.currentLevel == 4  || $scope.currentLevel == 7  ||
+            //     $scope.currentLevel == 10 || $scope.currentLevel == 13 ||
+            //     $scope.currentLevel == 13 || $scope.currentLevel == 16){
+
+            //     $scope.curGridFactor += 1;
+            // }
+
+            //ONLY FOR TESTING
+            $scope.curGridFactor += 1;
+
+
+            //increment the level
 			$scope.currentLevel += 1;
+
+            //return correct selections to zero for next level
             $scope.correctSelections = 0;
+
+            //reset the timer
             $scope.timerStarted = false;
 
             //re-hide the next level button
@@ -233,12 +259,18 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 
             //re-hide the grid images of pictures
 			var tempGameImagesRowDOM = document.getElementById('gameImagesRow');
-            tempGameImagesRowDOM.className += ' hidden';
+            //tempGameImagesRowDOM.className += ' hidden';
 
-			//update grid size
-            var tempWidth = String.valueOf($scope.curGridFactor * 125);
+			//update grid size in the CSS
+            //get grid id
+            $scope.gridDOM = document.getElementById('flexibleGrid');
+
+            var tempWidth = "";
+            tempWidth = ($scope.curGridFactor * 125).toString();
             tempWidth += "px";
 			$scope.gridDOM.style.width = tempWidth;
+
+            alert(tempWidth);
 
             //TESTING ONLY
             //remove comments to see the current grid factor
@@ -270,6 +302,7 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 			$scope.timerStarted = true;
 		}
 		
+        //the image is not in the imageSet (wrong image selected)
         if($.inArray($event.target.id.trim(),$scope.userStuff.imageSet) == -1){
             if($scope.timeRemaining >= 1){
                 $scope.timeRemaining = $scope.timeRemaining - $scope.wrongImgSubtractor;
@@ -277,12 +310,14 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
             var tempDOM = document.getElementById($event.target.id);
             tempDOM.src = "./Views/crossmarkBox.png";
             $scope.imageStreak = 0;
+        //the image is in the image set (correct image selected)
         }else if($.inArray($event.target.id.trim(),$scope.userStuff.imageSet) != -1){
             var tempDOM = document.getElementById($event.target.id);
             tempDOM.src = "./Views/checkMark.png";
 			$scope.correctSelections++;
             $scope.imageStreak++;
         }
+        //the image is neither wrong or right (odd case)
         else{
             alert($event.target.id);
         }
@@ -304,36 +339,45 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
         return input;
     }
 
+    //Returns the complete grid size which is the grid factor ^ 2
     $scope.getGridFactor = function(){
         return new Array(Math.pow($scope.curGridFactor,2));
     }
-	
-    $scope.getArray = function(n){
-        return new Array(n);
-    }
 
+    //This function will randomly select images from the JSON image set
+    // to append to the randomImage set
     $scope.randomizePictureSet = function(){
-
-        var pair = "";
         $scope.usedPair = [];
 
         while($scope.randomImageSet.length != Math.pow($scope.curGridFactor,2)){
-            //
+            //set the pair to be empty
+            var pair = "";
+
+            //find a random group within the bounds
             var randGroup = Math.floor((Math.random() * 4));
 
-            //
+            //find a random index within the length of the random group
             var randIndex = Math.floor((Math.random() * imageSets[randGroup].imageSet.length));
 
+            //set the pair to be the string representation of the group and index number
             pair = randGroup.toString() + randIndex.toString();
+            pair = parseInt(pair);
 
+            //check if the pair has been used before by looking in the userPair array
+            //if the pair has not been used
             if($.inArray(pair, $scope.usedPair) == -1){
                 //push the random image from the random group into the set
                 $scope.usedPair.push(pair);
                 var name = imageSets[randGroup].name + "/" + imageSets[randGroup].imageSet[randIndex];
-                $scope.randomImageSet.push(name);
+
+                //now we need to check and make sure image set is not in the user set
+                if($.inArray(name, $scope.userImageSet) == -1){
+                    $scope.randomImageSet.push(name);
+                }   
             }
         }
 
+        //shuffle the random array so that order is different
         $scope.randomImageSet = $scope.shuffleArray($scope.randomImageSet);
     }
 
@@ -355,7 +399,8 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
             // factored into the score
             $scope.userScore += ($scope.currentLevel * $scope.timeRemaining) + ($scope.imageStreak * 10);
 
-			$scope.timeRemaining = $scope.timeRemaining;
+
+			//$scope.timeRemaining = $scope.timeRemaining;
 		}
 		else{
             timeCheck = $timeout($scope.onTimeout, 1000);
@@ -377,6 +422,11 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 			tempDOM.className = "row";
 		}
     }
+
+    //go to the review game page
+    $scope.reviewGame = function(){
+        window.location = "#/review";
+    }
 });
 
 app.controller('InfoController', function($scope) {
@@ -390,10 +440,16 @@ app.controller('InfoController', function($scope) {
 });
 
 app.controller('HscoresController', function($scope) {
-    //$scope.tagline = "HscoresControl";
+
+    //need to do a POST request to get the highscores data
 
     $scope.highscores = [{name: "Zeus", score: "988,234,453"},
                          {name: "Obama",score: "22,234,363"},
                          {name: "Beetlejuice", score: "2,838,472"},
-                         {name: "Anthony", score: "22"}];
+                         {name: "Anthony", score: "-22"}];
+});
+
+app.controller("ReviewGameController", function($scope, gameData, userData){    
+    $scope.userData = userData;
+    $scope.gameData = gameData;
 });

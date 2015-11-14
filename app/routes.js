@@ -9,6 +9,11 @@ module.exports = function(app) {
 		res.sendFile(path.join(__dirname , '../public','views/index.html')); // load our public/index.html file
 	});
 
+	//only for developer access
+	app.get('/developerAccess', function(req, res){
+		res.sendFile(path.join(__dirname, '../public', 'views/dev.html'));
+	});
+
 	app.get('/api/images', function(req, res) {
 		Images.getImages(function(err, images) {
 			if (err) {
@@ -17,7 +22,7 @@ module.exports = function(app) {
 			res.json(images);
 		});
 	});
-	
+
 	app.get('/api/highScores', function(req, res) { // 29:00
 		HighScores.getHighScores(function(err, hScores) {
 			if (err) {

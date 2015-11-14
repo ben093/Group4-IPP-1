@@ -1,6 +1,7 @@
 {
       "name": "QuickSight",
       "main": "server.js",
+      "license": "MIT",
       "description": "Simple app for a school project",
       "repository": "https://github.com/MajorGrits/Group4-IPP.git",
       "dependencies": {
