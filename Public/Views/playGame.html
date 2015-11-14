@@ -12,10 +12,10 @@
             ng-repeat="imageSet in randomImageSet track by $index"
             ng-src="Views/projectPics/{{imageSet}}"
             ng-click="selectImg($event);"
-            alt="Description" class="img-circle" width="100px" height="100px"/>
+            alt="Description" class="img-circle" width="{{newImgSize}}"/>
         </div>
     </div>
-    
+
     <div>Total Score: {{userScore}} Level: {{currentLevel}}</div>
     <div>Image Streak: {{imageStreak}}</div>
 	

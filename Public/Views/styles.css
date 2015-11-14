@@ -20,6 +20,13 @@ body {
   color: #000000;
 }
 
+.btn:focus,
+.btn:active,
+.btn:focus:active,
+.btn:active:focus{
+  outline-color: #000000;
+}
+
 .blurBackground {     
   position: absolute;
   top: 0px;
@@ -37,6 +44,7 @@ body {
 .btn:hover {
   background: #262626;
   color: #ffffff;
+  outline-color: #000000;
 }
 
 .blurArea{
@@ -44,7 +52,7 @@ body {
   margin: 0 auto;
   position: relative;
   z-index: 100;
-  padding: 20px;
+  padding: 10px;
   width: 66%;
   background: rgb(10, 10, 10); /* for IE */
   background: rgba(10, 10 ,10 ,0.75);
@@ -56,7 +64,7 @@ body {
     display: inline-block;
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 66%;
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -83,6 +91,10 @@ body {
   width: 100%;
 }
 
+#flexibleGrid{
+  width: 375px;
+}
+
 table, th, td{
     margin: 0 auto;
     border: 1px solid black;
@@ -104,8 +116,6 @@ ul {
 
 img{
   padding: 2px;
-  height: 125px;
-  width: 125px;
 }
 
 .nav-pills > li{
