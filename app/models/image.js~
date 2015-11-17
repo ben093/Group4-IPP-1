@@ -1,2 +1,0 @@
-var imageSchema = new mongoose.Schema({
-		userImages: 	[{ url: String, id: String, category: String }]
