@@ -1,11 +1,12 @@
 {
-    "name": "QuickSight",
-    "version": "1.0.0",
-    "dependencies": {
-        "bootstrap": "latest",
-        "font-awesome": "latest",
-        "animate.css": "latest",
-        "angular": "latest",
-        "angular-route": "latest"   
-    }
+  "name": "QuickSight",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "angular": "^1.4.7",
+    "angular-ui-router": "^0.2.15",
+    "jquery": "~2.1.4",
+    "font-awesome": "~4.4.0",
+    "animate.css": "~3.4.0"
+  }
 }
