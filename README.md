@@ -1,7 +1,7 @@
 # QuickSight
-  ## Group 4 IPP Project
-  ### [Missouri State University](http://computerscience.missouristate.edu/undergraduate/)
-  ####  CSC450 Fall 2015 Project
+## Group 4 IPP Project
+### [Missouri State University](http://computerscience.missouristate.edu/undergraduate/)
+####  CSC450 Fall 2015 Project
 ## What it is
   This is a tool to test Image Sets to be used in a image based password system. The system logs information about the images to be used at a later time.
 ## License
