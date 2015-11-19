@@ -16,7 +16,6 @@ var HighScores = module.exports = mongoose.model('highScores', highScoresSchema)
 
 
 // get highScoress
-
 module.exports.getHighScores = function(callback, limit) {
 	HighScores.find(callback).limit(limit);
 };

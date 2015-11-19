@@ -31,7 +31,24 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
     for(ind = 0;ind < $scope.userStuff.imageSet.length;ind++){ 
         $scope.randomImageSet.push($scope.userStuff.imageSet[ind]); 
     }
-	
+
+    //Send POST request with name,age,gender, and image selection set
+    $scope.sendPOST = function(){
+
+        //create a json object to send
+        var postData = {
+                name: $scope.userData.name,
+                age:  $scope.userData.age,
+                gender: $scope.userData.gender,
+                imageSet: $scope.userImageSet
+        };
+
+        //send the POST
+        $http.post('/api/user', postData).success(function(data, response){
+            console.log(response);
+        });
+    }
+
 	$scope.nextLevel = function(){
 		
 		if($scope.currentLevel == 18){
