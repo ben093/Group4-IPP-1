@@ -1,4 +1,5 @@
-<html lang="en">
+<!doctype html>
+<html lang="en" ng-app="QuickSight">
 <head>
     <meta charset="UTF-8">
     <title>Quick Sight</title>
@@ -14,7 +15,14 @@
     <link rel="stylesheet" href="views/styles.css"> <!-- custom styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans" type='text/css'>
 </head>
-<body>
+<body ng-controller="DeveloperController">
 	<h1>DEV ACCESS ONLY</h1>
+    <div id="base"></div>
+    <img id="inputImg" src="" />
+    <input type='file' id="inputFile" />
+    <!-- JS -->
+    <script src="js/app.js"></script>
+    <!-- Controllers -->
+    <script src="js/controllers/developerAccess.js"></script>
 </body>
 </html>

@@ -78,6 +78,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'views/reviewGame.html',
             controller: "ReviewGameController"
         })
+
+        //DEVELOPER PAGE
+        .state('developerAccess',{
+            url: '/developerAcess',
+            templateUrl: 'views/dev.html',
+            controller: "DeveloperController"
+        })
         
         //INFO PAGE
         .state('info', {

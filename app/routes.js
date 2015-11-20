@@ -63,6 +63,7 @@ module.exports = function(app) {
 
 		res.json(userData);
 
+		//Will insert a new user into the user data collection
 		// UserData.addUserData(userData, function(err, userData){
 		// 	//needs to be added to database eventually
 		// 	if(err){ res.send(err); }
