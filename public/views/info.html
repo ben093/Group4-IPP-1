@@ -1,10 +1,21 @@
 <!-- public/views/info.html -->
 <div ng-controller="InfoController">
 	<div class="blurArea">
-	        <h3>Welcome to the Info Page</h3>
-	        <h4>Developers: </h4>
-	        <ul ng-repeat="developer in developers">
-	            <li>{{ developer }}</li>
-	        </ul>
+		<h2>Welcome!</h2>
+		<div id="mainInfoContent">
+			<h4>This website was developed by a group of students at Missouri State University
+				for their CSC 450 - Software Engineering class project.</h4>
+			<h4> The main goal of this website is to find out if certain user's gravitate towards
+				a certain image set when they choose what images they want.</h4>
+			<h4> No personal data is required but it is strongly encourage to provide at least a 	gender and an age. This will help us determine if images can be used as passwords 	for banking, personal applications, and much more!</h4>
+		</div>
+		<h2>Instructions for the game:</h2>
+		<div id="mainInfoContent">
+			<h4>1. Select an image set that is 5 images long</h4>
+			<h4>2. Press begin and quickly select your image set from the images shown</h4>
+			<h4>3. If you select the correct images in the alloted time, you will advance
+				to the next level with increased difficulty</h4>
+		</div>
+		<h2>Good luck!</h2>
 	</div>
 </div>

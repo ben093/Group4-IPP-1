@@ -1,3 +1,20 @@
 app.factory("userData", function(){
-    return { name: "Person who forgot their own name", age: "Lazy-years-old", gender: "Unicorn", imageSet: []};
+	var service = {};
+
+	var _userData = {
+		name: "",
+		age: "",
+		gender: "",
+		imageSet: []
+	};
+
+	service.setUserData = function(newData){
+		_userData = newData;
+	};
+
+	service.getUserData = function(){
+		return _userData;
+	};
+
+	return service;
 });

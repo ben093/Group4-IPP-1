@@ -6,13 +6,17 @@
         <button class="btn" ng-click="startTimer()">Begin</button>
 	</div>
 
+    <div>
+        <p ng-repeat="thing in userData.imageSet">{{thing}}</p>
+    </div>
+
     <div id="gameImagesRow"class="row">
         <div id="flexibleGrid" class="col-custom">
             <img id="{{imageSet}}" 
             ng-repeat="imageSet in randomImageSet track by $index"
             ng-src="views/projectPics/{{imageSet}}"
             ng-click="selectImg($event);"
-            alt="Description" class="img-circle" width="{{newImgSize}}"/>
+            alt="Description" class="img-circle" width="{{newImgSize}}" height="{{newImgSize}}"/>
         </div>
     </div>
 

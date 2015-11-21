@@ -95,6 +95,11 @@ body {
   width: 375px;
 }
 
+#mainInfoContent{
+  text-align: left;
+  text-indent: 50px;
+}
+
 table, th, td{
     margin: 0 auto;
     border: 1px solid black;

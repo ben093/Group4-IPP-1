@@ -1,8 +1,6 @@
 app.controller('MainController', function($scope, $http, userData) {
 
-    $scope.userData = userData;
-
-    $scope.postData = {};
+    $scope.userData = userData.getUserData();
 
     //Send POST request with name,age,gender, and image selection set
     // $scope.sendPOST = function(){

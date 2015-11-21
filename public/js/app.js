@@ -4,6 +4,7 @@ var app = angular.module('QuickSight', ['ui.router'])
 //function that will handle the routing of the front end
 app.config(function($stateProvider, $urlRouterProvider) {
 
+    //default route
     $urlRouterProvider.otherwise('/');
     
     $stateProvider

@@ -1,8 +1,8 @@
 app.controller('PlayGameController', function($scope, $timeout, userData, imageSets, gameData) {
 	
 	//user data variables
-    $scope.userStuff = userData;
-    $scope.userImageSet = userData.imageSet;
+    $scope.userStuff = userData.getUserData();
+    $scope.userImageSet = $scope.userStuff.imageSet;
 
     //game variables
     $scope.timeRemaining = 10;
@@ -32,24 +32,11 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
         $scope.randomImageSet.push($scope.userStuff.imageSet[ind]); 
     }
 
-    //Send POST request with name,age,gender, and image selection set
-    $scope.sendPOST = function(){
-
-        //create a json object to send
-        var postData = {
-                name: $scope.userData.name,
-                age:  $scope.userData.age,
-                gender: $scope.userData.gender,
-                imageSet: $scope.userImageSet
-        };
-
-        //send the POST
-        $http.post('/api/user', postData).success(function(data, response){
-            console.log(response);
-        });
-    }
-
 	$scope.nextLevel = function(){
+
+        //FUNCTION TODO
+        //1. make sure the time is also re-init'd to new time per level
+        //2. figure out why copies of images happen and fix it, check the randomize func too
 		
 		if($scope.currentLevel == 18){
 			//max level finished
