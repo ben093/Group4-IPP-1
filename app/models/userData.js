@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-
 //I feel that we shouldn't do a userResult AND a userData but just modify the user collection
 //if they finish the game
 var userDataSchema = new mongoose.Schema({

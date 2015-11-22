@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="QuickSight">
+<html lang="en" ng-app="QuickSight" ng-init="init()">
 <head>
     <meta charset="UTF-8">
     <title>Quick Sight</title>
@@ -16,14 +16,33 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans" type='text/css'>
 </head>
 <body ng-controller="DeveloperController">
-	<h1>DEV ACCESS ONLY</h1>
-    <div id="base"></div>
-    <img id="inputImg" src="" width="100px"/>
-    <input type='file' id="inputFile" />
-    <button class="btn btn-default col-xs-1" ng-click="upload()">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-    </button>
-    <div id="uploadResponse">{{confirmMsg}}</div>
+
+    <!--Add input for image group, maybe pull groups from the database and list them-->
+    <div class="blurArea">
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <input type='file' id="inputFile" />
+            </div>
+            <div class="form-group">
+                <label for="imgGroup">Category:</label>
+                <select name="genderSelect" class="form-control" ng-model="newImage.category">
+                    <option ng-repeat="category in images" value="{{category.category}}">{{category.category}}</option>
+                </select> 
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="upload()">Upload</button>
+        </form>
+        <img id="inputImg" src="" width="100px"/>
+    </div>
+
+    <p>{{newImage.category}}</p>
+    <p>{{newImage.img_id}}</p>
+
+    <div class="blurArea">
+        <p ng-repeat="imageSet in images">
+            {{imageSet.category}}
+            <img ng-repeat="image in imageSet.imageSet" src="{{image}}" width="80px"/>
+        </p>
+    </div>
 
     <!--POST LOAD-->
     <!-- JS -->

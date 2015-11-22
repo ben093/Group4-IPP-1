@@ -11,6 +11,7 @@ ErrorLog = require('./models/errorLog.js');
 
 module.exports = function(app) {
 	
+	//GET REQUESTS//
 	//GET request the returns the base layer of the web front end
 	app.get('/', function(req, res) {
 		res.sendFile(path.join(__dirname , '../public','views/index.html')); // load our public/index.html file
@@ -25,10 +26,12 @@ module.exports = function(app) {
 
 	//GET request to get the current images
 	app.get('/api/images', function(req, res) {
+		console.log("get req on images");
 		Images.getImages(function(err, images) {
 			if (err) {
 				throw err;
 			}
+			console.log(images);
 			res.json(images);
 		});
 	});
@@ -43,6 +46,7 @@ module.exports = function(app) {
 		});
 	});
 
+	//POST REQUESTS//
 	//POST request to create a new high score
 	app.post('/api/highScores', function(req, res) { // 41:30 https://www.youtube.com/watch?v=eB9Fq9I5ocs
 		var hScore = req.body;		
@@ -69,6 +73,16 @@ module.exports = function(app) {
 		// 	if(err){ res.send(err); }
 		// 	res.json(userData);
 		// })
+	});
+
+	//POST to add new image to the database
+	app.post('/developerAccess', function(req, res){
+		var newImage = req.body;
+
+		Images.addImage(newImage, function(err, newImage){
+			if(err){ res.send(err); }
+			else{ res.json(newImage); }
+		});
 	});
 };
 

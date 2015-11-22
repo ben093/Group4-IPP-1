@@ -125,14 +125,20 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
 		
         //the image is not in the imageSet (wrong image selected)
         if($.inArray($event.target.id.trim(),$scope.userStuff.imageSet) == -1){
+            //time is out
             if($scope.timeRemaining >= 1){
                 $scope.timeRemaining = $scope.timeRemaining - wrongImgSubtractor;
             }
+
+            //image was wrong, change the image to a cross
             var tempDOM = document.getElementById($event.target.id);
             tempDOM.src = "./Views/crossmarkBox.png";
             $scope.imageStreak = 0;
+
         //the image is in the image set (correct image selected)
         }else if($.inArray($event.target.id.trim(),$scope.userStuff.imageSet) != -1){
+
+            //image was correct, change the image to a checkmark
             var tempDOM = document.getElementById($event.target.id);
             tempDOM.src = "./Views/checkMark.png";
 			$scope.correctSelections++;
@@ -196,7 +202,7 @@ app.controller('PlayGameController', function($scope, $timeout, userData, imageS
                 newImgName = imageSets[randGroup].name + "/" + imageSets[randGroup].imageSet[randIndex];
 
                 //now we need to check and make sure image set is not in the user set
-                if($.inArray(name, $scope.userImageSet) == -1){
+                if($.inArray(newImgName, $scope.userImageSet) == -1){
                     $scope.randomImageSet.push(newImgName);
                 }   
             }

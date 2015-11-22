@@ -1,5 +1,5 @@
-
 var mongoose = require('mongoose');
+
 var highScoresSchema = new mongoose.Schema({
 	name: {
 		  type: String,
@@ -9,11 +9,9 @@ var highScoresSchema = new mongoose.Schema({
 		type: Number,
 		required:true
 	}
-
 });
 
 var HighScores = module.exports = mongoose.model('highScores', highScoresSchema);
-
 
 // get highScoress
 module.exports.getHighScores = function(callback, limit) {
