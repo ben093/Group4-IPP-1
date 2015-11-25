@@ -6,6 +6,7 @@ app.controller('DeveloperController', function($scope, $http){
 
 	$scope.newImage = {
 		category: "",
+		fileName: "",
 		img_id: ""
 	};
 
@@ -27,6 +28,10 @@ app.controller('DeveloperController', function($scope, $http){
 	        	//$("#base").text(e.target.result);
 	        	$("#inputImg").attr ("src", e.target.result);
 	        	$scope.newImage.img_id = e.target.result;
+	        	$scope.newImage.fileName = FR.fileName;
+	        	$("#inputFile").each(function() {
+    				$scope.newImage.fileName = $(this).val().split('/').pop().split('\\').pop();
+				});
 	        } 
         	FR.readAsDataURL( this.files[0] );
     	}

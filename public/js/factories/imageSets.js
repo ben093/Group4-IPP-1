@@ -1,8 +1,8 @@
-app.factory("imageSets", function(){
+app.factory("imageSets", function($http){
 
     var imageSets = [{"name": "Animals",
                       "imageSet":
-                                    ['aliduck.jpg', 'bat.jpg', 'cat.jpg', 'coolOwl.jpeg',
+                                    ['bat.jpg', 'cat.jpg', 'coolOwl.jpeg',
                                     'dog.jpg', 'fish.jpg', 'fox.jpg', 'frog.jpg',
                                     'gecko.jpg', 'koala.jpg', 'lightsaber.jpg', 'lion.jpeg',
                                     'monkey.jpg', 'pig.jpg', 'tiger.jpg', 'turtle.jpeg', 'wolf.jpg']
@@ -16,12 +16,10 @@ app.factory("imageSets", function(){
                     },
                     {"name": "Random",
                     "imageSet" : 
-                                    ['apple.jpg', 'bear.jpg', 'camera.jpg', 'cheetos.jpg',
-                                    'circuitBoard.jpg', 'cliffdive.jpg', 'donut.jpg', 'dragon.jpg',
-                                    'earth.gif', 'einstein.jpg', 'faceless.jpg', 'fried_egg.jpg',
-                                    'honestabe.jpg', 'hottie.jpg', 'jacked.jpg', 'jackolantern.jpg',
-                                    'leaningtower.jpg', 'leatherChair.jpg', 'math.jpg', 'mikemyers.jpg',
-                                    'paweater.jpg', 'poker.jpg', 'retroCar.jpg', 'rose.jpg']
+                                    ['apple.jpg', 'camera.jpg', 'cheetos.jpg','cliffdive.jpg', 
+                                    'dragon.jpg', 'earth.gif', 'einstein.jpg', 'faceless.jpg', 
+                                    'fried_egg.jpg', 'honestabe.jpg', 'hottie.jpg', 'jacked.jpg',
+                                    'leaningtower.jpg','mikemyers.jpg', 'paweater.jpg']
                     },
                     {"name" : "Sports",
                      "imageSet" :
@@ -30,7 +28,6 @@ app.factory("imageSets", function(){
                                     'lacross.jpg', 'messi.jpg', 'motorcross.jpg', 'rugby.jpg',
                                     'soccer.jpg', 'tennis.jpg', 'whistle.jpg', 'xbox.jpg']
                     }];
-
     return imageSets;
 });
 

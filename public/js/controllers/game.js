@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $http, userData, imageSets){
+app.controller('GameController', function($scope, $http, userData){
 
     //copy the userData over for use
     $scope.userData = userData.getUserData();
@@ -8,7 +8,16 @@ app.controller('GameController', function($scope, $http, userData, imageSets){
 
     //copy the imageSets for use
     //will need to be replaced by a get called for the images from the db
-    $scope.imageSets = imageSets;
+    //$scope.imageSets = imageSets;
+
+    //initialize all the data from the backend
+    $scope.init = function(){
+        //GET request for the images
+        $http.get('/api/images').success(function(data, response){
+            $scope.images = data;
+            console.log($scope.images[0].category);
+        });
+    }
 
     //redundant code
     //$scope.userData.imageSet = $scope.userimageSet.userimageSet;

@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="col-custom">
-        <img id="{{imageSets[2].name}}/{{imageSet}}" 
-        ng-src="views/projectPics/{{imageSets[2].name}}/{{imageSet}}"
-        ng-repeat="imageSet in imageSets[2].imageSet" 
+        <img id="{{images[3].category}}" 
+        ng-repeat="image in images[3].imageSet"
+        ng-src="{{image}}" 
         alt="Description" 
         ng-click="addItem($event)" class="img-circle" width="100px" height="100px"/>
     </div>

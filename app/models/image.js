@@ -5,7 +5,16 @@ var imageSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	imageSet: []
+	imageSet: [{
+		pictureName:{
+			type: String,
+			required: true,
+		},
+		base64:{
+			type: String,
+			required: true
+		}
+	}]
 });
 
 var Images = module.exports = mongoose.model('Images', imageSchema);
@@ -24,13 +33,20 @@ module.exports.addImage = function(newImage, callback){
 
 	if(collection){ //category is found
 		//assign update to the appropiate value
-		update = { $addToSet: {"imageSet":newImage.img_id} };
+		update = { $addToSet: 
+			{ "imageSet": 
+				{   
+					pictureName: newImage.fileName, 
+					base64: newImage.img_id 
+				} 
+			} 
+		};
 
 		//update the existing category but adding the newImage.img_id to the set
 		Images.update(query, update, callback);
 	}else{ //collection not found
 		//assign update to the appropiate value
-		update = {"imageSet": [newImage.img_id]};
+		update = {"imageSet": [newImage.imgName, newImage.img_id]};
 
 		//create a new category with the newImage.img_id in the imageSet
 		Images.create(query, update, callback);

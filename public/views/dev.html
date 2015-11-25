@@ -40,7 +40,7 @@
     <div class="blurArea">
         <p ng-repeat="imageSet in images">
             {{imageSet.category}}
-            <img ng-repeat="image in imageSet.imageSet" src="{{image}}" width="80px"/>
+            <img id="{{image.fileName}}" ng-repeat="image in imageSet.imageSet" src="{{image.base64}}" width="80px"/>
         </p>
     </div>
 

@@ -28,10 +28,7 @@ module.exports = function(app) {
 	app.get('/api/images', function(req, res) {
 		console.log("get req on images");
 		Images.getImages(function(err, images) {
-			if (err) {
-				throw err;
-			}
-			console.log(images);
+			if (err) { throw err; }
 			res.json(images);
 		});
 	});
