@@ -1,20 +1,16 @@
 <!-- public/views/playGame.html -->
-<div class="blurArea" ng-controller="PlayGameController"  ng-init="randomizePictureSet()">
+<div class="blurArea" ng-controller="PlayGameController" ng-init="checkRootScope()">
     <h4>Welcome, {{userStuff.name}}!</h4>
     <div>
         <h1 id="timerMsg">Time Remaining: {{timeRemaining}}</h1>
         <button class="btn" ng-click="startTimer()">Begin</button>
 	</div>
 
-    <div>
-        <p ng-repeat="thing in userData.imageSet">{{thing}}</p>
-    </div>
-
     <div id="gameImagesRow"class="row">
         <div id="flexibleGrid" class="col-custom">
-            <img id="{{imageSet}}" 
-            ng-repeat="imageSet in randomImageSet track by $index"
-            ng-src="views/projectPics/{{imageSet}}"
+            <img ng-repeat="image in randomImageSet"
+            id="{{image.pictureName}}"
+            ng-src="{{image.base64}}"
             ng-click="selectImg($event);"
             alt="Description" class="img-circle" width="{{newImgSize}}" height="{{newImgSize}}"/>
         </div>

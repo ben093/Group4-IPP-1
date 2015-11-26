@@ -1,6 +1,10 @@
 // public/js/app.js
 var app = angular.module('QuickSight', ['ui.router'])
 
+app.run(function($rootScope){
+    $rootScope.images;
+})
+
 //function that will handle the routing of the front end
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -24,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         //GAME/ANIMALS PAGE
-        .state('game.animals',{
+        .state('game.Animals',{
             url: '/animals',
             templateUrl: 'views/game.animals.html',
             parent: 'game',
@@ -33,7 +37,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         //GAME/PLACES PAGE
-        .state('game.places',{
+        .state('game.Places',{
             url: '/places',
             templateUrl: 'views/game.places.html',
             parent: 'game',
@@ -42,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         //GAME/SPORTS PAGE
-        .state('game.sports',{
+        .state('game.Sports',{
             url: '/sports',
             templateUrl: 'views/game.sports.html',
             parent: 'game',
@@ -51,7 +55,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         //GAME/RANDOM PAGE
-        .state('game.random',{
+        .state('game.Random',{
             url: '/random',
             templateUrl: 'views/game.random.html',
             parent: 'game',

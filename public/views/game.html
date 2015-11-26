@@ -1,5 +1,5 @@
 <!-- public/views/game.html -->
-<div class="blurArea" ng-controller="GameController" ng-init="init()">
+<div class="blurArea" ng-controller="GameController">
     <h3>Welcome, {{userData.name}}!</h3>
 
     <ul class="nav nav-pills">
@@ -13,9 +13,9 @@
     <button class="btn" ng-click="confirmImageSet()">Confirm</button>
     <div class="row">
         <div class="col-custom">
-            <img id="{{imageSet}}" 
-            ng-repeat="imageSet in userData.imageSet"
-            ng-src="views/projectPics/{{imageSet}}" 
+            <img id="{{imageSet.pictureName}}" 
+            ng-repeat="imageSet in scp_userData.imageSet"
+            ng-src="{{imageSet.base64}}" 
             alt="Description" ng-click="removeItem($event)" class="img-circle" width="110px"/>
         </div>
     </div>

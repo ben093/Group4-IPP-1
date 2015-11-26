@@ -8,6 +8,15 @@ app.factory("userData", function(){
 		imageSet: []
 	};
 
+	service.pushItem = function(item){
+		_userData.imageSet.push(item);
+	};
+
+	service.removeItem = function(item){
+		var index = _userData.imageSet.indexOf(item);
+		_userData.imageSet.splice(index, 1);
+	};
+
 	service.setUserData = function(newData){
 		_userData = newData;
 	};

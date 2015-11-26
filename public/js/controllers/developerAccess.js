@@ -41,12 +41,7 @@ app.controller('DeveloperController', function($scope, $http){
 
 		//send the POST
         $http.post('/developerAccess', $scope.newImage).success(function(response){
-            if(response == 200){ //success code
-            	//return a confirm msg
-				$scope.confirmMsg = "Successful upload";
-            }else{
-            	$scope.confirmMsg = "Error code: " + response;
-            }
+        	$scope.confirmMsg = "Success!";
         });
 
 		//re-init the image src to nothing
