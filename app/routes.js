@@ -11,7 +11,7 @@ ErrorLog = require('./models/errorLog.js');
 
 module.exports = function(app) {
 	
-	//GET REQUESTS//
+	////   GET REQUESTS    ////
 	//GET request the returns the base layer of the web front end
 	app.get('/', function(req, res) {
 		res.sendFile(path.join(__dirname , '../public','views/index.html')); // load our public/index.html file
@@ -26,7 +26,7 @@ module.exports = function(app) {
 
 	//GET request to get the current images
 	app.get('/api/images', function(req, res) {
-		console.log("get req on images");
+		console.log("GET request for /api/images");
 		Images.getImages(function(err, images) {
 			if (err) { throw err; }
 			res.json(images);
@@ -35,6 +35,7 @@ module.exports = function(app) {
 
 	//GET request to get the current highscores
 	app.get('/api/highScores', function(req, res) { // 29:00
+		console.log("GET request for /api/highScores");
 		HighScores.getHighScores(function(err, hScores) {
 			if (err) {
 				throw err;
@@ -43,9 +44,10 @@ module.exports = function(app) {
 		});
 	});
 
-	//POST REQUESTS//
+	////      POST REQUESTS      ////
 	//POST request to create a new high score
 	app.post('/api/highScores', function(req, res) { // 41:30 https://www.youtube.com/watch?v=eB9Fq9I5ocs
+		console.log("POST request for /api/highScores");
 		var hScore = req.body;		
 		HighScores.addHighScore(hScore, function(err, hScore) {
 			if (err) {
@@ -58,15 +60,13 @@ module.exports = function(app) {
 
 	//POST request to create a new user
 	app.post('/api/user', function(req, res){
+		console.log("POST request for /api/user");
 		var userData = req.body;
-		console.log("req.body");
 		console.log(userData);
-
 		res.json(userData);
 
 		//Will insert a new user into the user data collection
 		// UserData.addUserData(userData, function(err, userData){
-		// 	//needs to be added to database eventually
 		// 	if(err){ res.send(err); }
 		// 	res.json(userData);
 		// })
@@ -74,6 +74,7 @@ module.exports = function(app) {
 
 	//POST to add new image to the database
 	app.post('/developerAccess', function(req, res){
+		console.log("POST request for /developerAccess");
 		var newImage = req.body;
 
 		Images.addImage(newImage, function(err, newImage){

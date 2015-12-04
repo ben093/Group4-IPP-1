@@ -1,30 +1,36 @@
-app.controller('MainController', function($rootScope, $scope, $http, userData, imageSets) {
+app.controller('MainController', function($rootScope, $scope, $http, userData) {
 
     $scope.userData = userData.getUserData();
 
     //Send POST request with name,age,gender, and image selection set
-    // $scope.sendPOST = function(){
+    $scope.sendPOST = function(){
 
-    //     //create a json object to send
-    //     var postData = ({
-    //             name: $scope.userData.name,
-    //             age:  $scope.userData.age,
-    //             gender: $scope.userData.gender   
-    //     });
+        //create a json object to send
+        var postData = ({
+                name: $scope.userData.name,
+                age:  $scope.userData.age,
+                gender: $scope.userData.gender   
+        });
 
+        console.log(postData);
+
+    //      ONLY UNCOMMENT WHEN PUSHING FINAL PRODUCT
     //     //send the POST
     //     $http.post("/api/user", postData).success(function(postData, response){
     //         console.log(response);
     //         $scope.postData = response;
     //     });
-    // }
+    }
 
     //get the images from the back end
     $scope.getImages = function(){
         //GET request for the images
         $http.get('/api/images').success(function(data, response){
+            //
             $rootScope.images = data;
-            console.log(data.length);
+
+            //re-enable the submit button when the iamges hae been retrieved from the database
+            document.getElementById('submitBtn').disabled = false;
         });
     }
 
@@ -33,7 +39,13 @@ app.controller('MainController', function($rootScope, $scope, $http, userData, i
     // because when I did it during the game page and the play game page
     // it was slow and tedious, this is a lot better. Trust me.
     $scope.$on("$viewContentLoaded", function(){
-        $scope.getImages();
+        //images have NOT been populated yet
+        if($rootScope.images == null){
+            $scope.getImages();
+        }else{ //images HAVE been populated
+            //re-enable the submit button when the iamges hae been retrieved from the database
+            document.getElementById('submitBtn').disabled = false;
+        }
     });
 
     $scope.submit = function(){

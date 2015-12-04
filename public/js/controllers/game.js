@@ -1,4 +1,4 @@
-app.controller('GameController', function($rootScope, $scope, $http, userData, imageSets){
+app.controller('GameController', function($rootScope, $scope, $http, userData){
 
     //copy the userData over for use
     $scope.scp_userData = userData.getUserData();
@@ -29,6 +29,21 @@ app.controller('GameController', function($rootScope, $scope, $http, userData, i
         // });
     }
 
+    //checks to see if the image is in the imageSet, returns -1 is no, 1 if yes
+    $scope.isSelectionInArray = function(image, imageSet){
+        for(var i = 0; i < imageSet.length; i++)
+        {
+            if(image.pictureName == imageSet[i].pictureName)
+            {
+                // return the index of the matched image.
+                return i;
+            }
+        }
+        
+        // return -1 if not found.
+        return -1;
+    }
+
     //fires once the user clicks an img to add to their selection
     $scope.addItem = function($event){
         //Uncomment to get alerts for different parts of the event.target
@@ -44,7 +59,7 @@ app.controller('GameController', function($rootScope, $scope, $http, userData, i
         //set a requirement of 5 images on the user
         if($scope.scp_userData.imageSet.length == 5){
             alert("Maximun images selected.");
-        }else if($.inArray(selectedImage, $scope.scp_userData.imageSet) == -1){
+        }else if($scope.isSelectionInArray(selectedImage, $scope.scp_userData.imageSet) == -1){
             //push the image id into the userImageSet
             $scope.scp_userData.imageSet.push(selectedImage);
         }else{ }
