@@ -67,8 +67,15 @@ app.controller('GameController', function($rootScope, $scope, $http, userData){
 
     //fires once the user is trying to remove an image from their selection
     $scope.removeItem = function($event){
+
+        //create a selected JSON obj
+        $scope.selectedImage = {
+            pictureName: $event.target.id,
+            base64: $event.target.src
+        }
+
         //retrieve the index of the selected image
-        var index = $scope.scp_userData.imageSet.indexOf($event.target.id);
+        var index = $scope.isSelectionInArray($scope.selectedImage, $scope.scp_userData.imageSet);
         
         //remove the element from the userSet
         $scope.scp_userData.imageSet.splice(index, 1);

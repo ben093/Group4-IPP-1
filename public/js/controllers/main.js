@@ -3,16 +3,16 @@ app.controller('MainController', function($rootScope, $scope, $http, userData) {
     $scope.userData = userData.getUserData();
 
     //Send POST request with name,age,gender, and image selection set
-    $scope.sendPOST = function(){
+    //$scope.sendPOST = function(){
 
         //create a json object to send
-        var postData = ({
-                name: $scope.userData.name,
-                age:  $scope.userData.age,
-                gender: $scope.userData.gender   
-        });
+        // var postData = ({
+        //         name: $scope.userData.name,
+        //         age:  $scope.userData.age,
+        //         gender: $scope.userData.gender   
+        // });
 
-        console.log(postData);
+        // console.log(postData);
 
     //      ONLY UNCOMMENT WHEN PUSHING FINAL PRODUCT
     //     //send the POST
@@ -20,7 +20,7 @@ app.controller('MainController', function($rootScope, $scope, $http, userData) {
     //         console.log(response);
     //         $scope.postData = response;
     //     });
-    }
+    //}
 
     //get the images from the back end
     $scope.getImages = function(){

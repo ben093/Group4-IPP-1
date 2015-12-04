@@ -22,15 +22,22 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
     //variable for re-sizing the images as the set becomes larger
     $scope.newImgSize = "125px";
 
-    //will hold the selected images that 
-    // the user selects during the game stage
-    $scope.userSelectedImages = [];
+    //will hold the selected images
+    $scope.selectedImages = [];
 
     //this function will push the user images to the randomSet
     //so that they will appear in the game play grid
     $scope.pushUserImages = function(){
         for(ind = 0; ind < $scope.scp_userData.imageSet.length; ind++){ 
             $scope.randomImageSet.push($scope.scp_userData.imageSet[ind]); 
+        }
+    }
+
+    $scope.changeSourcesOfSelectedImages = function(){
+        for(i = 0;i < $scope.randomImageSet.length;i++){
+            console.log($scope.randomImageSet[i].pictureName);
+            var tempDOM = document.getElementById($scope.randomImageSet[i].pictureName);
+            tempDOM.src = "";
         }
     }
 
@@ -90,6 +97,7 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
 
             //reset the timer
             timerStarted = false;
+            $scope.timeRemaining = 10;
 
             //re-hide the next level button
             var tempNextLevelDOM = document.getElementById('nextLevelBtn');
@@ -110,6 +118,9 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
 
             //re-populate the random pictures with...you guessed it...random pictures
             $scope.randomizePictureSet();
+
+            //reset image sources
+            $scope.changeSourcesOfSelectedImages();
 		}
 	}
 	
@@ -122,6 +133,8 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
             pictureName: $event.target.id,
             base64: $event.target.src
         };
+
+        $scope.selectedImages.push(selectedImage);
 		
         //if timer is already started do not create another timer
 		if(timerStarted == false){
@@ -229,20 +242,22 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
         var timerMsgDOM = document.getElementById('timerMsg');
         
         if($scope.timeRemaining <= 0){
+
 			var gameOverBtnDOM = document.getElementById('gameOverBtn');
+
             timerMsgDOM.innerHTML = "GAME'S OVER SLOWPOKE!";
 			gameOverBtnDOM.className = "btn btn-default";
             $scope.timeRemaining == 0;
+
         }else if($scope.correctSelections == $scope.scp_userData.imageSet.length){
+
 			var nextLevelBtnDOM = document.getElementById('nextLevelBtn');
+
 			timerMsgDOM.innerHTML = "YOU WIN!";
 			nextLevelBtnDOM.className = "btn btn-default";
 
-            //need to add the image streak functionality before it gets
-            // factored into the score
             $scope.userScore += ($scope.currentLevel * $scope.timeRemaining) + ($scope.imageStreak * 10);
 
-			//$scope.timeRemaining = $scope.timeRemaining;
 		}
 		else{
             timeCheck = $timeout($scope.onTimeout, 1000);

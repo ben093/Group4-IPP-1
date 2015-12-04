@@ -10,7 +10,7 @@
         <div id="flexibleGrid" class="col-custom">
             <img ng-repeat="image in randomImageSet"
             id="{{image.pictureName}}"
-            ng-src="{{image.base64}}"
+            src="{{image.base64}}"
             ng-click="selectImg($event);"
             alt="Description" class="img-circle" width="{{newImgSize}}" height="{{newImgSize}}"/>
         </div>
