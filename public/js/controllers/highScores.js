@@ -1,9 +1,7 @@
-app.controller('HscoresController', function($scope) {
+app.controller('HscoresController', function($rootScope, $scope, $http) {
 
     //need to do a POST request to get the highscores data
 
-    $scope.highscores = [{name: "Zeus", score: "988,234,453"},
-                         {name: "Obama",score: "22,234,363"},
-                         {name: "Beetlejuice", score: "2,838,472"},
-                         {name: "Anthony", score: "-22"}];
+    $scope.highscores = $rootScope._highScores;
+
 });

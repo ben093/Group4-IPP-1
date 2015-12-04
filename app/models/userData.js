@@ -47,4 +47,5 @@ var UserData = module.exports = mongoose.model('UserData', userDataSchema);
 
 module.exports.addUserData = function(userData, callback) {
 	UserData.create(userData, callback);
+	console.log("created data");
 };

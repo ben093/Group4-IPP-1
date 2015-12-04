@@ -37,9 +37,7 @@ module.exports = function(app) {
 	app.get('/api/highScores', function(req, res) { // 29:00
 		console.log("GET request for /api/highScores");
 		HighScores.getHighScores(function(err, hScores) {
-			if (err) {
-				throw err;
-			}
+			if (err) { throw err; }
 			res.json(hScores);
 		});
 	});
@@ -48,13 +46,14 @@ module.exports = function(app) {
 	//POST request to create a new high score
 	app.post('/api/highScores', function(req, res) { // 41:30 https://www.youtube.com/watch?v=eB9Fq9I5ocs
 		console.log("POST request for /api/highScores");
-		var hScore = req.body;		
-		HighScores.addHighScore(hScore, function(err, hScore) {
-			if (err) {
-				throw err;
-			}
-			res.json(hScore);
-		});
+		var hScore = req.body;
+		console.log(hScore);	
+		// HighScores.addHighScore(hScore, function(err, hScore) {
+		// 	if (err) {
+		// 		throw err;
+		// 	}
+		// 	res.json(hScore);
+		// });
 	});
 
 
@@ -66,10 +65,9 @@ module.exports = function(app) {
 		res.json(userData);
 
 		//Will insert a new user into the user data collection
-		// UserData.addUserData(userData, function(err, userData){
-		// 	if(err){ res.send(err); }
-		// 	res.json(userData);
-		// })
+		UserData.addUserData(userData, function(err){
+			if(err){ res.send(err); }
+		});
 	});
 
 	//POST to add new image to the database

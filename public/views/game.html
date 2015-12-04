@@ -1,13 +1,13 @@
 <!-- public/views/game.html -->
 <div class="blurArea" ng-controller="GameController">
-    <h3>Welcome, {{userData.name}}!</h3>
+    <h3>Welcome, {{scp_userData.name}}!</h3>
 
     <ul class="nav nav-pills">
         <li role="presentation" class="active" ng-repeat="imageGroup in images">
             <a ui-sref="game.{{imageGroup.category}}">{{imageGroup.category}}</a>
         </li>
     </ul>
-    
+
     <!--NESTED VIEW-->
     <div ui-view></div>
     <button class="btn" ng-click="confirmImageSet()">Confirm</button>

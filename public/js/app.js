@@ -3,6 +3,7 @@ var app = angular.module('QuickSight', ['ui.router'])
 
 app.run(function($rootScope){
     $rootScope.images;
+    $rootScope._highScores;
 })
 
 //function that will handle the routing of the front end

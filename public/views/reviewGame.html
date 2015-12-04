@@ -1,13 +1,20 @@
 <div class="blurArea" ng-controller="ReviewGameController">
 	<h1>REVIEW GAME PAGE</h1>
-	<p>Name: {{userData.name}}</p>
-	<p>Age: {{userData.age}}</p>
-	<p>Gender: {{userData.gender}}</p>
+	<p>Name: {{scp_userData.name}}</p>
+	<p>Age: {{scp_userData.age}}</p>
+	<p>Gender: {{scp_userData.gender}}</p>
 	<p>Image Set:
-		<p ng-repeat="img in userData.imageSet">{{img}}</p>
+	    <div class="row">
+	        <div class="col-custom">
+	            <img id="{{imageSet.pictureName}}" 
+	            ng-repeat="imageSet in scp_userData.imageSet"
+	            ng-src="{{imageSet.base64}}" 
+	            alt="Description" class="img-circle" width="110px"/>
+	        </div>
+		</div>
 	</p>
-	<p>Game Details</p>
-	<p>Score: {{gameData.score}}</p>
-	<p>Correct Selections: {{gameData.correctSelections}}</p>
-	<p>Image Streak: {{gameData.imageStreak}}</p>
+	<h2>Game Details</h2>
+	<p>Score: {{scp_gameData.score}}</p>
+	<p>Highest Level: {{scp_gameData.highestLevel}}</p>
+	<p>Image Streak: {{scp_gameData.imageStreak}}</p>
 </div>

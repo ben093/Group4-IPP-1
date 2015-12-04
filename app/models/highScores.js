@@ -17,12 +17,11 @@ var highScoresSchema = new mongoose.Schema({
 	}
 });
 
-var HighScores = module.exports = mongoose.model('highScores', highScoresSchema);
+var HighScores = module.exports = mongoose.model('HighScores', highScoresSchema);
 
-// get highScoress
-module.exports.getHighScores = function(callback, limit) {
-	//order by rank, lowest first and then only give back the top 10
-	HighScores.find(callback).limit(limit);
+// get images
+module.exports.getHighScores = function(callback) {
+	HighScores.find(callback);
 };
 
 // add high Score

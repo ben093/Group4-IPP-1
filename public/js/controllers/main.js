@@ -23,14 +23,22 @@ app.controller('MainController', function($rootScope, $scope, $http, userData) {
     //}
 
     //get the images from the back end
-    $scope.getImages = function(){
+    $scope.getData = function(){
         //GET request for the images
         $http.get('/api/images').success(function(data, response){
             //
             $rootScope.images = data;
 
-            //re-enable the submit button when the iamges hae been retrieved from the database
+            //re-enable the submit button when the images hae been retrieved from the database
             document.getElementById('submitBtn').disabled = false;
+        });
+
+        //GET request for the high scores
+        $http.get('/api/highScores').success(function(data, response){
+            //
+            $rootScope._highScores = data;
+
+            console.log(data);
         });
     }
 
@@ -41,7 +49,7 @@ app.controller('MainController', function($rootScope, $scope, $http, userData) {
     $scope.$on("$viewContentLoaded", function(){
         //images have NOT been populated yet
         if($rootScope.images == null){
-            $scope.getImages();
+            $scope.getData();
         }else{ //images HAVE been populated
             //re-enable the submit button when the iamges hae been retrieved from the database
             document.getElementById('submitBtn').disabled = false;

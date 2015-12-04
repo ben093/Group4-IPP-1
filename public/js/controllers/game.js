@@ -10,7 +10,7 @@ app.controller('GameController', function($rootScope, $scope, $http, userData){
     $scope.images = $rootScope.images;
 
     //Send POST request with name,age,gender, and image selection set
-    $scope.sendPOST = function(){
+    $scope.setUserData = function(){
 
         //create a json object to send
         var postData = ({
@@ -21,12 +21,6 @@ app.controller('GameController', function($rootScope, $scope, $http, userData){
         });
 
         userData.setUserData(postData);
-
-        //send the POST
-        ///        commented for testing only                              ///
-        // $http.post('/api/user', postData).success(function(data, response){
-        //     console.log(response);
-        // });
     }
 
     //checks to see if the image is in the imageSet, returns -1 is no, 1 if yes
@@ -88,7 +82,7 @@ app.controller('GameController', function($rootScope, $scope, $http, userData){
         }else{
             //push the imageSet to the db via POST request
             //start the game
-            $scope.sendPOST();
+            $scope.setUserData();
             window.location = '#/play';
         }
     }

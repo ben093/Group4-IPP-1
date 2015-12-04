@@ -6,11 +6,11 @@
         <button class="btn" ng-click="startTimer()">Begin</button>
 	</div>
 
-    <div id="gameImagesRow"class="row">
+    <div id="gameImagesRow"class="row hidden">
         <div id="flexibleGrid" class="col-custom">
             <img ng-repeat="image in randomImageSet"
             id="{{image.pictureName}}"
-            src="{{image.base64}}"
+            ng-src="{{image.base64}}"
             ng-click="selectImg($event);"
             alt="Description" class="img-circle" width="{{newImgSize}}" height="{{newImgSize}}"/>
         </div>

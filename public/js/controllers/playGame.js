@@ -1,4 +1,4 @@
-app.controller('PlayGameController', function($rootScope, $scope, $timeout, userData, gameData) {
+app.controller('PlayGameController', function($rootScope, $http, $scope, $timeout, userData, gameData) {
 	
 	//user data variables
     $scope.scp_userData = userData.getUserData();
@@ -7,6 +7,7 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
     $scope.timeRemaining = 10;
     $scope.currentLevel = 1;
     $scope.randomImageSet = [];
+    $scope.isClickable = true;
     var timerStarted = false;
     var wrongImgSubtractor = 1;
 
@@ -22,9 +23,6 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
     //variable for re-sizing the images as the set becomes larger
     $scope.newImgSize = "125px";
 
-    //will hold the selected images
-    $scope.selectedImages = [];
-
     //this function will push the user images to the randomSet
     //so that they will appear in the game play grid
     $scope.pushUserImages = function(){
@@ -34,10 +32,18 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
     }
 
     $scope.changeSourcesOfSelectedImages = function(){
-        for(i = 0;i < $scope.randomImageSet.length;i++){
-            console.log($scope.randomImageSet[i].pictureName);
-            var tempDOM = document.getElementById($scope.randomImageSet[i].pictureName);
-            tempDOM.src = "";
+        var images = document.getElementsByTagName("img");
+
+        for(i = 0;i < images.length;i++){
+            var img = images[i];
+            var tempJSONObj = {};
+            for(q = 0;q < $scope.randomImageSet.length;q++){
+                if($scope.randomImageSet[q].pictureName === img.id){
+                    tempJSONObj = $scope.randomImageSet[q];
+                }
+            }
+
+            img.src = tempJSONObj.base64;
         }
     }
 
@@ -55,73 +61,72 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
 
 	$scope.nextLevel = function(){
 		
-		if($scope.currentLevel == 18){
-			//max level finished
-		}else{
-			//reset all values
-			//increment grid factor if level is 4, 7, 10, 13, 16
-			//4 -> 4x4
-			//7 -> 5x5
-			//10-> 6x6
-			//13-> 7x7
-			//16-> 8x8
-			//if curLevel % 3 == 0 up grid factor
+		//reset all values
+		//increment grid factor if level is 4, 7, 10, 13, 16
+		//4 -> 4x4
+		//7 -> 5x5
+		//10-> 6x6
+		//13-> 7x7
+		//16-> 8x8
+		//if curLevel % 3 == 0 up grid factor
 
-            //clear the current random pictures
-            $scope.randomImageSet = [];
+        //clear the current random pictures
+        $scope.randomImageSet = [];
 
-            //re-initialize the userData.imageSet via re-copying the original 
-            // userData.imageSet via the saved scp_userData.imageSet
-            //$scope.scp_userData.imageSet = $scope.scp_userData.imageSet;
+        //increment the level
+        $scope.currentLevel += 1;
 
-            //Change the grid factor and the size of the pictures based on level
-            // level logic is explain above
-            // switch($scope.currentLevel){
-            //     case 4:
-            //     case 7:
-            //     case 10:
-            //     case 13:
-            //     case 16:
-            // }
+        //Change the grid factor and the size of the pictures based on level
+        // level logic is explain above
+        switch($scope.currentLevel){
+            case 4: $scope.curGridFactor += 1;
+                    break;
+            case 7: $scope.curGridFactor += 1;
+                    break;
+            case 10: $scope.curGridFactor += 1;
+                    break;
+            case 13: $scope.curGridFactor += 1;
+                    break;
+            case 16: $scope.curGridFactor += 1;
+                    break;
+            case 19: $scope.reviewGame();
+                    break;
+        }
 
-            $scope.newImgSize = "80px";
+        $scope.newImgSize = "80px";
 
-            //ONLY FOR TESTING
-            $scope.curGridFactor += 1;
+        //return correct selections to zero for next level
+        $scope.correctSelections = 0;
 
-            //increment the level
-			$scope.currentLevel += 1;
+        //reinit the clickable bool
+        $scope.isClickable = true;
 
-            //return correct selections to zero for next level
-            $scope.correctSelections = 0;
+        //reset the timer
+        timerStarted = false;
+        $scope.timeRemaining = 10;
 
-            //reset the timer
-            timerStarted = false;
-            $scope.timeRemaining = 10;
+        //re-hide the next level button
+        var tempNextLevelDOM = document.getElementById('nextLevelBtn');
+        tempNextLevelDOM.className += ' hidden';
 
-            //re-hide the next level button
-            var tempNextLevelDOM = document.getElementById('nextLevelBtn');
-            // tempNextLevelDOM.className += ' hidden';
+        //re-hide the grid images of pictures
+		var tempGameImagesRowDOM = document.getElementById('gameImagesRow');
+        tempGameImagesRowDOM.className += ' hidden';
 
-            //re-hide the grid images of pictures
-			var tempGameImagesRowDOM = document.getElementById('gameImagesRow');
-            //tempGameImagesRowDOM.className += ' hidden';
+		//update grid size in the CSS
+        //get grid id
+        $scope.gridDOM = document.getElementById('flexibleGrid');
 
-			//update grid size in the CSS
-            //get grid id
-            $scope.gridDOM = document.getElementById('flexibleGrid');
+        var tempWidth = "";
+        tempWidth = ($scope.curGridFactor * 125).toString();
+        tempWidth += "px";
+        $scope.gridDOM.style.width = tempWidth;
 
-            var tempWidth = "";
-            tempWidth = ($scope.curGridFactor * 125).toString();
-            tempWidth += "px";
-			$scope.gridDOM.style.width = tempWidth;
+        //re-populate the random pictures with...you guessed it...random pictures
+        $scope.randomizePictureSet();
 
-            //re-populate the random pictures with...you guessed it...random pictures
-            $scope.randomizePictureSet();
-
-            //reset image sources
-            $scope.changeSourcesOfSelectedImages();
-		}
+        //reset image sources
+        $scope.changeSourcesOfSelectedImages();
 	}
 	
 	//This function will take the selected image event from the front end,
@@ -129,45 +134,60 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
     //based correct/incorrect
     $scope.selectImg = function($event){
 
-        var selectedImage = {
-            pictureName: $event.target.id,
-            base64: $event.target.src
-        };
+        if($scope.isClickable){
 
-        $scope.selectedImages.push(selectedImage);
-		
-        //if timer is already started do not create another timer
-		if(timerStarted == false){
-			$scope.startTimer();
-			timerStarted = true;
-		}
-		  
-		//find whether the image is in the imageSet
-		var imageIndexFound = $scope.isSelectionInArray(selectedImage, $scope.scp_userData.imageSet);
-		  
-        //the image is not in the imageSet (wrong image selected)
-		if(imageIndexFound == -1){
-            //time is out
-            if($scope.timeRemaining >= 1){
-                $scope.timeRemaining = $scope.timeRemaining - wrongImgSubtractor;
-            }
-
+            var selectedImage = {
+                pictureName: $event.target.id,
+                base64: $event.target.src
+            };
+    		
+            //if timer is already started do not create another timer
+    		if(timerStarted == false){
+    			$scope.startTimer();
+    			timerStarted = true;
+    		}
+    		  
+    		//find whether the image is in the imageSet
+    		var imageIndexFound = $scope.isSelectionInArray(selectedImage, $scope.scp_userData.imageSet);
+    		
             //image was wrong, change the image to a cross
             var tempDOM = document.getElementById($event.target.id);
-            $event.target.src = "./Views/crossmarkBox.png";
-            $scope.imageStreak = 0;
 
-		}else if(imageIndexFound != -1){
-            //image was correct, change the image to a checkmark
-            var tempDOM = document.getElementById($event.target.id);
-            $event.target.src = "./Views/checkMark.png";
-			$scope.correctSelections++;
-            $scope.imageStreak++;
-        }
-        //the image is neither wrong or right (odd case)
-        else{
-            alert("Error with ImgID: " + $event.target.id);
-        }
+            //the image is not in the imageSet (wrong image selected)
+    		if(imageIndexFound == -1){
+
+                var tempSRC = tempDOM.src.slice(-16);
+                //alert(tempSRC);
+
+                if(tempSRC !== "crossmarkBox.png"){
+                    $event.target.src = "./views/crossmarkBox.png";
+                    $scope.imageStreak = 0;
+
+                    //time is not out
+                    if($scope.timeRemaining >= 1){
+                        $scope.timeRemaining = $scope.timeRemaining - wrongImgSubtractor;
+                    }
+
+                }else{}
+                
+
+    		}else if(imageIndexFound != -1){
+
+                var tempSRC = tempDOM.src.slice(-13);
+                //alert(tempSRC);
+
+                if(tempSRC !== "checkMark.png"){
+                    $event.target.src = "./views/checkMark.png";
+                    $scope.correctSelections++;
+                    $scope.imageStreak++;
+                }else{}
+                
+            }
+            //the image is neither wrong or right (odd case)
+            else{
+                alert("Error with ImgID: " + $event.target.id);
+            }
+        }else{}
     }
 
 	//shuffle the random array
@@ -185,12 +205,6 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
 
         return input;
     }
-
-    //Returns the complete grid size which is the grid factor ^ 2
-    // Commented because I'm not sure if this function is still being used
-    // $scope.getGridFactor = function(){
-    //     return new Array(Math.pow(curGridFactor,2));
-    // }
 
     //This function will randomly select images from the JSON image set
     // to append to the randomImage set
@@ -249,12 +263,19 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
 			gameOverBtnDOM.className = "btn btn-default";
             $scope.timeRemaining == 0;
 
+            //set the clickable boolean
+            $scope.isClickable = false;
+
+
         }else if($scope.correctSelections == $scope.scp_userData.imageSet.length){
 
 			var nextLevelBtnDOM = document.getElementById('nextLevelBtn');
 
 			timerMsgDOM.innerHTML = "YOU WIN!";
 			nextLevelBtnDOM.className = "btn btn-default";
+
+            //set the clickable boolean
+            $scope.isClickable = false;
 
             $scope.userScore += ($scope.currentLevel * $scope.timeRemaining) + ($scope.imageStreak * 10);
 
@@ -296,7 +317,36 @@ app.controller('PlayGameController', function($rootScope, $scope, $timeout, user
 
     //go to the review game page
     $scope.reviewGame = function(){
+
+        var tempJSON = {
+            name: $scope.scp_userData.name,
+            score: $scope.userScore
+        };
+
+        var tempGameData = {
+            score: $scope.userScore,
+            imageStreak: $scope.imageStreak,
+            highestLevel: $scope.currentLevel
+        };
+
+        gameData.updateGameData(tempGameData);
+
+        $http.post('/api/highScores', tempJSON).success(function(data, response){
+            console.log(response);
+        });
+
         window.location = "#/review";
     }
+
+    $scope.sendUserData = function(){
+        var postData = userData.getUserData();
+
+        $http.post('/api/user', postData).success(function(data, response){
+        });
+    }
+
+    $scope.$on("$viewContentLoaded", function(){
+        $scope.sendUserData();
+    });
 });
 

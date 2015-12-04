@@ -3,7 +3,6 @@ app.factory("gameData", function(){
 
 	var _gameData = {
 		score: 0,
-		correctSelections: 0,
 		imageStreak: 0,
 		highestLevel: 0
 	};
