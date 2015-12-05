@@ -10,7 +10,7 @@ HighScores = require('./models/highScores.js');
 ErrorLog = require('./models/errorLog.js');
 
 module.exports = function(app) {
-	
+
 	////   GET REQUESTS    ////
 	//GET request the returns the base layer of the web front end
 	app.get('/', function(req, res) {
@@ -45,15 +45,15 @@ module.exports = function(app) {
 	////      POST REQUESTS      ////
 	//POST request to create a new high score
 	app.post('/api/highScores', function(req, res) { // 41:30 https://www.youtube.com/watch?v=eB9Fq9I5ocs
-		console.log("POST request for /api/highScores");
+		//console.log("POST request for /api/highScores");
 		var hScore = req.body;
-		console.log(hScore);	
-		// HighScores.addHighScore(hScore, function(err, hScore) {
-		// 	if (err) {
-		// 		throw err;
-		// 	}
-		// 	res.json(hScore);
-		// });
+		//console.log(hScore);
+		HighScores.addHighScore(hScore, function(err, hScore) {
+			if (err) {
+					throw err;
+			}
+			res.json(hScore);
+		});
 	});
 
 
@@ -81,5 +81,3 @@ module.exports = function(app) {
 		});
 	});
 };
-
-
