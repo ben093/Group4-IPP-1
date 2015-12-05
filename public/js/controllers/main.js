@@ -2,26 +2,6 @@ app.controller('MainController', function($rootScope, $scope, $http, userData) {
 
     $scope.userData = userData.getUserData();
 
-    //Send POST request with name,age,gender, and image selection set
-    //$scope.sendPOST = function(){
-
-        //create a json object to send
-        // var postData = ({
-        //         name: $scope.userData.name,
-        //         age:  $scope.userData.age,
-        //         gender: $scope.userData.gender   
-        // });
-
-        // console.log(postData);
-
-    //      ONLY UNCOMMENT WHEN PUSHING FINAL PRODUCT
-    //     //send the POST
-    //     $http.post("/api/user", postData).success(function(postData, response){
-    //         console.log(response);
-    //         $scope.postData = response;
-    //     });
-    //}
-
     //get the images from the back end
     $scope.getData = function(){
         //GET request for the images
@@ -57,7 +37,6 @@ app.controller('MainController', function($rootScope, $scope, $http, userData) {
     });
 
     $scope.submit = function(){
-    	//$scope.sendPOST();
         window.location = '#/game/animals';
     }
 });

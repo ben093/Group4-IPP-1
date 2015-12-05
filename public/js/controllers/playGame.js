@@ -82,18 +82,21 @@ app.controller('PlayGameController', function($rootScope, $http, $scope, $timeou
             case 4: $scope.curGridFactor += 1;
                     break;
             case 7: $scope.curGridFactor += 1;
+                    $scope.newImgSize = "80px";
                     break;
             case 10: $scope.curGridFactor += 1;
+                    $scope.newImgSize = "80px";
                     break;
             case 13: $scope.curGridFactor += 1;
+                    $scope.newImgSize = "80px";
                     break;
             case 16: $scope.curGridFactor += 1;
+                    $scope.newImgSize = "80px";
                     break;
             case 19: $scope.reviewGame();
+                    $scope.newImgSize = "80px";
                     break;
         }
-
-        $scope.newImgSize = "80px";
 
         //return correct selections to zero for next level
         $scope.correctSelections = 0;

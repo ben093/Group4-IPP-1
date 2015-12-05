@@ -9,7 +9,6 @@ var highScoresSchema = new mongoose.Schema({
 		type: Number,
 		min: 1,
 		max: 10,
-		required: true
 	},
 	score: {
 		type: Number,
@@ -17,21 +16,13 @@ var highScoresSchema = new mongoose.Schema({
 	}
 });
 
-var HighScores = module.exports = mongoose.model('HighScores', highScoresSchema);
+var HighScores = module.exports = mongoose.model('HighScores', highScoresSchema, "highScores");
 
-// get images
 module.exports.getHighScores = function(callback) {
-	HighScores.find(callback);
+	HighScores.find({}, callback);
 };
 
 // add high Score
 module.exports.addHighScore = function(hScore, callback) {
-
-	//get the current high scores in order of lowest rank integer to highest rank integer
-	var curHighScores = HighScores.find().sort({rank: 1});
-
-	//IDEAS:
-	//1. Put the new hscores into curHighScores, sort, re-rank, then remove the last element
-	//2. Write an algorithm to check the highscores, insert highscores, re-order the rest
 	HighScores.create(hScore, callback);
 };

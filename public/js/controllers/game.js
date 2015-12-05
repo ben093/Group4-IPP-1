@@ -21,6 +21,11 @@ app.controller('GameController', function($rootScope, $scope, $http, userData){
         });
 
         userData.setUserData(postData);
+
+        //send the POST request with the User Data
+        $http.post("/api/user", postData).success(function(response){
+            console.log(response);
+        });
     }
 
     //checks to see if the image is in the imageSet, returns -1 is no, 1 if yes

@@ -61,8 +61,6 @@ module.exports = function(app) {
 	app.post('/api/user', function(req, res){
 		console.log("POST request for /api/user");
 		var userData = req.body;
-		console.log(userData);
-		res.json(userData);
 
 		//Will insert a new user into the user data collection
 		UserData.addUserData(userData, function(err){

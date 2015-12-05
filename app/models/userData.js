@@ -19,24 +19,16 @@ var userDataSchema = new mongoose.Schema({
 		required: false,
 		default: "Unknown"
 	},
-	imageSet: [{ 
-		id: {
-			type:String, 
+	imageSet: [{
+		pictureName:{
+			type: String,
 			required: true,
-			default: []
-	   	}
+		},
+		base64:{
+			type: String,
+			required: true
+		}
 	}],
-	shownImages: [{ 
-		id:{
-			type:String,
-			required: true,
-			default: []
-	   	}
-	}],
-	numWrongImgs: { 
-		type: Number, 
-		default: 0
-	},
 	submittedDate: {
 		type: Date,
 		default: Date.now
@@ -47,5 +39,4 @@ var UserData = module.exports = mongoose.model('UserData', userDataSchema);
 
 module.exports.addUserData = function(userData, callback) {
 	UserData.create(userData, callback);
-	console.log("created data");
 };
