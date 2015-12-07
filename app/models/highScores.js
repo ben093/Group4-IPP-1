@@ -19,7 +19,7 @@ var highScoresSchema = new mongoose.Schema({
 var HighScores = module.exports = mongoose.model('HighScores', highScoresSchema, "highScores");
 
 module.exports.getHighScores = function(callback) {
-	HighScores.find({}, callback);
+	HighScores.find().sort({score:-1}).exec(callback);
 };
 
 // add high Score
