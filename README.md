@@ -1,4 +1,4 @@
-# [QuickSight](quicksight.azurewebsites.net/#/)
+# [QuickSight](http://quicksight.azurewebsites.net/#/)
 ## Group 4 IPP Project
 ### [Missouri State University](http://computerscience.missouristate.edu/undergraduate/)
 ####  CSC450 Fall 2015 Project
