@@ -1,0 +1,54 @@
+<!-- public/index.html -->
+<!doctype html>
+<html lang="en" ng-app="QuickSight">
+<head>
+    <meta charset="UTF-8">
+    <title>Quick Sight</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="views/styles.css"> <!-- custom styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans" type='text/css'>
+
+    <!-- ANGULAR CUSTOM -->
+
+</head>
+<body>
+    <div id="wrapper" position="relative">
+    	<div id="content">
+    	    <!-- ANGULAR DYNAMIC CONTENT -->
+    	    <div ui-view></div>
+    	</div>
+        <div id= "footer">
+            <div class="blurArea">
+                <div layout="row" layout-align="center center">
+                    <button class="btn" ui-sref="home">Home</button>
+                    <button class="btn" ui-sref="game.Animals">Game</button>
+                    <button class="btn" ui-sref="info">Info</button>
+                    <button class="btn" ui-sref="hscores">High Scores</button>
+                    <button id="githubLink" class="btn" href="https://github.com/MajorGrits/Group4-IPP.git">Github</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas id="maize-garden" position="absolute"></canvas>
+
+<!--POST LOADED SCRIPTS-->
+    <!-- JS -->
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/app.js"></script>
+	<script src="js/nodeGarden.js"></script>
+	<!-- Controllers -->
+	<script src="js/controllers/game.js"></script>
+	<script src="js/controllers/highScores.js"></script>
+	<script src="js/controllers/info.js"></script>
+	<script src="js/controllers/main.js"></script>
+	<script src="js/controllers/playGame.js"></script>
+	<script src="js/controllers/reviewGame.js"></script>
+	<!-- Factories -->
+	<script src="js/factories/gameData.js"></script>
+	<script src="js/factories/userData.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<!-- public/views/hscores.html -->
+<div class="blurArea" ng-init="init()">
+    <h1> High Scores </h1>
+    <table>
+        <tr ng-repeat="x in highscores">
+        	<td>{{ $index + 1 }}</td>
+            <td>{{ x.name }}</td>
+            <td>{{ x.score }}</td>
+        </tr>
+    </table>
+</div>
